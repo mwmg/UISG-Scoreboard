@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h3 Live
+    audio#buzzer(src="/sound/buzzer.mp3" preload="auto")
+    script(src="/socket.io/socket.io.js")
+    script(src='/javascripts/board.js')
+    block sport
+
+

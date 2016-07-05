@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    // Wrapper
+    #wrapper
+        // Live Events List
+        h2 Live Events
+        #eventsList
+            table
+                thead
+                    th Sport
+                    th Home team
+                    th Away team
+                tbody
+        // /USER LIST
+
+    // /WRAPPER
+    script(src='/javascripts/liveevents-list.js')
+
