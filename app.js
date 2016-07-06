@@ -9,11 +9,17 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('127.0.0.1:27017/scoreboard');
 
+
+// Including Passport
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var expressSession = require('express-session');
+
 //Routes
 var routes = require('./routes/index');
 var pastevents = require('./routes/pastevents');
 var liveevents = require('./routes/liveevents');
-var manager = require('./routes/manager');
+var manager = require('./routes/manager')(passport);
 
 var app = express();
 var server = require('http').Server(app);
@@ -44,10 +50,23 @@ app.use(function(req,res,next){
     next();
 });
 
+//Configuring Passport
+app.use(expressSession({secret: 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
+// Using the flash middleware provided by connect-flash to store messages in session
+// and displaying in templates
+var flash = require('connect-flash');
+app.use(flash());
+
 app.use('/', routes);
 app.use('/pastevents', pastevents);
 app.use('/live', liveevents);
 app.use('/manager', manager);
+
+// Initialize Passport
+var initPassport = require('./passport/init');
+initPassport(passport, db);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
