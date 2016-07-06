@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mwmg:pass@ds013545.mlab.com:13545/scoreboard'); //locally: 127.0.0.1:27017/scoreboard
+var db = monk('test:pass@ds013545.mlab.com:13545/scoreboard'); //locally: 127.0.0.1:27017/scoreboard
 
 
 // Including Passport
