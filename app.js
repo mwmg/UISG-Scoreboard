@@ -68,6 +68,15 @@ app.use('/manager', manager);
 var initPassport = require('./passport/init');
 initPassport(passport, db);
 
+//Start sockets for existent live events
+var collection = db.get('liveevents');
+  collection.find({},{},function(e,docs){
+    var game = require('./game.js');
+    for (var x in docs){
+      game(io,db,docs[x].room);
+    }
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

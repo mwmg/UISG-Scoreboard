@@ -93,7 +93,13 @@ module.exports = function(passport){
 			res.redirect("/manager/startevent/"+newevent.room);
 		});
 	});
-
+	/*GET list liveevents and link either to remote or delete the event*/
+	router.get('/liveevents/:id',isAuthenticated,function(req, res, next){
+		var title;
+		if(req.params.id ==='remote') title = "Choose event remote";
+		if(req.params.id === 'delete') title = "Delete event";
+		res.render('manageliveevents',{title: title, action: req.params.id});
+	});
 	/*GET manager site */
 	router.get('/remote/:id', isAuthenticated, function(req, res, next) {
 	  res.render('remote', { title: 'Your remote' });
