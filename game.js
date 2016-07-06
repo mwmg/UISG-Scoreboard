@@ -142,9 +142,10 @@ function Game (io, db, room) {
 	/**
 	 * Function to update the clock
 	 */
+	 // ONLY WORKS FOR UPCOUNTING clock
 	function updateClock () {
 		var printTime;
-		if (CURRENT_TIME === GAME.TIME_LIMIT) {
+		if (CURRENT_TIME >= GAME.TIME_LIMIT) {
 			clearInterval(clockInterval);
 			stopClock();
 			io.to(room).emit('current time status', 'game finished');
@@ -159,7 +160,7 @@ function Game (io, db, room) {
         	if(err) console.log("Error removing live event: "+err));
     	});*/
 		collection = db.get('pastevents');
-		collection.insert(GAME,function(err,result){
+		collection.insert(GAME,function(err,result){ // SOMETHINGS WRONG WITH GAME
 			if (err){
 			    console.log('Error in storing live event: '+err);  
 			    throw err;  
