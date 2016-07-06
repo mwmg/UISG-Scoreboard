@@ -6,7 +6,7 @@ function Game (io, db, room) {
 	var GAME;
 	var CURRENT_TIME;
 	//var TIME_CUTOFF = 59999; // ms (59.99 seconds)
-	var ISTIMERUNNING;
+	var ISTIMERUNNING = false;
 	var VIEWERS = 0;
 	// retrieving initial game information from DB
 	var collection = db.get('liveevents');
@@ -72,7 +72,7 @@ function Game (io, db, room) {
 
 		// socket to recieve 'start' signal from the remote
 		socket.on('start time', function () {
-			startClock();
+			if (!ISTIMERUNNING) startClock();
 		});
 
 		// socket to reset the clock
