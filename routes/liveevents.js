@@ -18,7 +18,7 @@ router.get('/event/:id',function(req, res) {
 	var db = req.db;
     var collection = db.get('liveevents');
     collection.find({'room': req.params.id},{},function(e,docs){
-        var sport = docs[0].sport;
+        var sport = docs[0].sport.toLowerCase();
         res.render(sport)
     });
 });

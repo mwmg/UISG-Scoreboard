@@ -48,7 +48,7 @@ function Game (io, db, room) {
 				})
 				//start sport specific event handlers
 				switch(GAME.sport){
-					case 'football':
+					case 'Football':
 						football(socket);
 						break;
 					default:
@@ -148,10 +148,24 @@ function Game (io, db, room) {
 			clearInterval(clockInterval);
 			stopClock();
 			io.to(room).emit('current time status', 'game finished');
+			saveGame();
 		}
 		var formattedTime = msToTime(CURRENT_TIME);
 		printTime = formattedTime[1] + ':' + formattedTime[2];
 		io.to(room).emit('current time print', printTime);
+	}
+	function saveGame() {
+		/*collection.remove({'room':room},{},function(err) {
+        	if(err) console.log("Error removing live event: "+err));
+    	});*/
+		collection = db.get('pastevents');
+		collection.insert(GAME,function(err,result){
+			if (err){
+			    console.log('Error in storing live event: '+err);  
+			    throw err;  
+			}
+			console.log('Live event stored to pastevents: '+GAME);
+		});
 	}
 }
 module.exports = Game;

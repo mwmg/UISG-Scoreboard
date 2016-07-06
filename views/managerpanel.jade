@@ -7,12 +7,12 @@ block content
 				#user
 					h1.text-center.login-title Welcome #{user.firstName}.
 					p Here you can:
-					a(href='') Create new events
+					a(href='/manager/createliveevent') Create new events
 					br
-					a(href='') Delete past events
+					a(href='/manager/pastevents/delete') Delete past events
 					br
-					a(href='') Delete created live events
+					a(href='/manager/liveevents/delete') Delete created live events
 					br
-					a(href='') Remote control a live event
+					a(href='/manager/liveevents/remote') Remote control a live event
 					br
 					a(href='/manager/signout', class='text-center new-account') Sign Out
