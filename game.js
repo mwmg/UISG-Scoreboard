@@ -159,6 +159,7 @@ function Game (io, db, room) {
 		/*collection.remove({'room':room},{},function(err) {
         	if(err) console.log("Error removing live event: "+err));
     	});*/
+		console.log(GAME);
 		collection = db.get('pastevents');
 		collection.insert(GAME,function(err,result){ // SOMETHINGS WRONG WITH GAME
 			if (err){

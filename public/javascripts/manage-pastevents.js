@@ -3,6 +3,10 @@ $(document).ready(function() {
 
     // Populate the event table on initial page load
     populateTable();
+    $("#pasteventsList table tbody").on('click','tr', function() {
+        var id = $(this).data("id");
+        document.location = '/manager/pastevents/delete/' + $(this).data("id");
+    });
 
 });
 // Functions =============================================================
@@ -19,11 +23,11 @@ function populateTable() {
     	console.log(data);
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
-            tableContent += '<tr>';
-            tableContent += '<td>'+this.team_home+'</td>';
-            tableContent += '<td>' + this.team_home_score + '</td>';
-            tableContent += '<td>'+this.team_away_score+'</td>';
-            tableContent += '<td>' + this.team_away+ '</td>';
+            tableContent += '<tr data-id="'+this._id+'">';
+            tableContent += '<td>'+this.team_home.name+'</td>';
+            tableContent += '<td>' + this.team_home.score + '</td>';
+            tableContent += '<td>'+this.team_away.score+'</td>';
+            tableContent += '<td>' + this.team_away.name + '</td>';
             tableContent += '</tr>';
         });
 

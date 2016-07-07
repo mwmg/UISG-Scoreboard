@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    // Wrapper
+    #wrapper
+        // Past Events List
+        h2 Past Events
+        #pasteventsList
+            table
+                thead
+                    th Home team
+                    th Home score
+                    th Away score
+                    th Away team
+                tbody
+        // /USER LIST
+
+    // /WRAPPER
+    script(src='/javascripts/manage-pastevents.js')
+

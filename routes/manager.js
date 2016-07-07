@@ -105,6 +105,31 @@ module.exports = function(passport){
 	  res.render('remote', { title: 'Your remote' });
 	});
 
+	/* Delete existing live events */
+	router.get('/deleteliveevent/:id',isAuthenticated,function(req,res){
+		var db = req.db;
+		var collection = db.get('liveevents');
+		collection.remove({'room':req.params.id},function(err,result){
+			if(err) console.log('ERR: Deleting live event: '+err);
+			console.log(result);
+			res.redirect('/live');
+		})
+	});
+	/* List past events for deletion */
+	router.get('/pastevents/delete',isAuthenticated,function(req, res){
+		res.render('manage-pastevents');
+	});
+	/* Delete past events */
+	router.get('/pastevents/delete/:id',isAuthenticated,function(req,res){
+		var db = req.db;
+		var collection = db.get('pastevents');
+		collection.remove({'_id':req.params.id},function(err,result){
+			if(err) console.log('ERR: Deleting past event: '+err);
+			console.log(result);
+			res.redirect('/pastevents');
+		})
+	});
+
 	/*GET this starts a socket for a given event */
 	router.get('/startevent/:id', isAuthenticated, function(req, res) {
 		var db = req.db;
