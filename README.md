@@ -16,10 +16,10 @@ What should work:
 ================
 * View live/past events in real-time
 * Login-secured admin section
-..* Create/delete live events
-..* Remote control live events
-..* Delete past events
-..* Create an account
+* Create/delete live events
+* Remote control live events
+* Delete past events
+* Create an account
 
 Installation
 ============
