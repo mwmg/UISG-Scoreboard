@@ -5,21 +5,21 @@ A digital scoreboard for high school use.
 
 Work on:
 ========
-*Dynamic homepage based on existing live events
-*Design
-*Incorporating several sports, i.e. basketball, volleyball
-*Credits site
-*Logo image file upload
-*Add times/dates
+* Dynamic homepage based on existing live events
+* Design
+* Incorporating several sports, i.e. basketball, volleyball
+* Credits site
+* Logo image file upload
+* Add times/dates
 
 What should work:
 ================
-*View live/past events in real-time
-*Login-secured admin section
-..*Create/delete live events
-..*Remote control live events
-..*Delete past events
-..*Create an account
+* View live/past events in real-time
+* Login-secured admin section
+..* Create/delete live events
+..* Remote control live events
+..* Delete past events
+..* Create an account
 
 Installation
 ============
