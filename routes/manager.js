@@ -21,7 +21,7 @@ module.exports = function(passport){
 	/* GET login page. */
 	router.get('/login', function(req, res) {
     	// Display the Login page with any flash message, if any
-		res.render('login', { title: 'Your managing panel', message: req.flash('message') });
+		res.render('login', { message: req.flash('message') });
 	});
 
 	/* Handle Login POST */
@@ -54,7 +54,7 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/panel', isAuthenticated, function(req, res){
-		res.render('managerpanel', { user: req.user });
+		res.render('managerpanel', { user: req.user, title: "Your managing panel" });
 	});
 
 	/* GET Create Event */
@@ -66,18 +66,26 @@ module.exports = function(passport){
 	router.post('/createevent',isAuthenticated,function(req,res){
 		var db = req.db;
 		var collection = db.get('liveevents');
-		var newevent = {	"sport": req.body.sport,
+		var newevent = {	"sport": req.body.sport.toLowerCase(),
 							"event_name": req.body.event_name,
 							"team_home": req.body.team_home,
 							"team_away": req.body.team_away,
-							"game_length": req.body.game_length*60000,
 						}
-		switch(req.body.sport){
-			case 'Football':
-				newevent.start_time = 0;
+		switch(req.body.sport.toLowerCase()){
+			case 'football':
+				newevent.game_length = req.body.game_length*60000;
 				newevent.team_home_score = 0;
 				newevent.team_away_score = 0;
-				newevent.TIME_LIMIT = newevent.game_length;
+				break;
+			case 'volleyball':
+				newevent.sets = [];
+				newevent.sets_win = req.body.sets_win;
+				newevent.sets_pts = req.body.sets_pts;
+				newevent.sets_tie_pts = req.body.sets_tie_pts;
+				newevent.current_set = 1;
+				newevent.current_set_type = "normal";
+				newevent.home_wins = 0;
+				newevent.away_wins = 0;
 				break;
 			case 'default':
 				console.log('Invalid sport entered through form');

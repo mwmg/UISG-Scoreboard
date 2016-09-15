@@ -2,12 +2,15 @@ doctype html
 html
     head
         title= title
+        ////maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css
+        link(rel="stylesheet", href="/stylesheets/bootstrap.min.css", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
         link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
+        block extraheader
     body
-        script(src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
-        script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", crossorigin="anonymous")
-        nav.navbar.navbar-default
+        script(src='/javascripts/jquery.min.js') ////ajax.googleapis.com/ajax/libs/jquery/2.0.3/
+        ////maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/
+        script(src="/javascripts/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", crossorigin="anonymous")
+        nav.navbar.navbar-default.navbar-fixed-top
             .container-fluid
                 .navbar-header
                     a(class="navbar-brand" href="/") Scoreboard
@@ -20,4 +23,5 @@ html
                     ul.nav.navbar-nav.navbar-right
                         li
                             a(href='/manager') Admin
-        block content
+        #content
+            block content

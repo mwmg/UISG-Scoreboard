@@ -4,7 +4,7 @@ function Game (io, db, room) {
 	// Game variables
 	//==================
 	var GAME;
-	var CURRENT_TIME;
+	var CURRENT_TIME_UP = 0;
 	//var TIME_CUTOFF = 59999; // ms (59.99 seconds)
 	var ISTIMERUNNING = false;
 	var VIEWERS = 0;
@@ -15,7 +15,6 @@ function Game (io, db, room) {
 			console.log(e);
 		}else if(docs.length === 1){
 			GAME = docs[0];
-			CURRENT_TIME = GAME.start_time;
 			commonSocketStuff();
 		}else{
 			console.log('ERROR: event with invalid room number has been started.');
@@ -47,9 +46,12 @@ function Game (io, db, room) {
 					console.log(message);
 				})
 				//start sport specific event handlers
-				switch(GAME.sport){
-					case 'Football':
+				switch(GAME.sport.toLowerCase()){
+					case 'football':
 						football(socket);
+						break;
+					case 'volleyball':
+						volleyball(socket);
 						break;
 					default:
 						console.log('ERROR: Event from database contains invalid sport type.');
@@ -58,7 +60,7 @@ function Game (io, db, room) {
 		});
 	}
 	/*
-		Different sport types
+	**************************************Different sport types****************************************
 	*/
 	function football(socket){
 		updateClock();
@@ -68,17 +70,19 @@ function Game (io, db, room) {
 		// socket to recieve 'pause' signal from the remote
 		socket.on('pause time', function () {
 			stopClock();
+			io.to(room).emit('current time status', 'pause');
 		});
 
 		// socket to recieve 'start' signal from the remote
 		socket.on('start time', function () {
 			if (!ISTIMERUNNING) startClock();
+			io.to(room).emit('current time status', 'start');
 		});
 
 		// socket to reset the clock
 		socket.on('reset clock', function () {
 			stopClock();
-			CURRENT_TIME = GAME.start_time;
+			CURRENT_TIME_UP = 0;
 			updateClock();
 		});
 
@@ -92,15 +96,30 @@ function Game (io, db, room) {
 			io.to(room).emit('update score signal', newScoreInfo);
 		});
 	}
+	function volleyball(socket){
+		socket.on('volleyball point', function(pointInfo){
+			var home_points = GAME.sets[GAME.currentSet].team_home_points;
+			var away_points = GAME.sets[GAME.currentSet].team_away_points;
+			if(pointInfo.team === GAME.team_home){
+				if(currentSet){
+
+				}
+				home_points = pointInfo.points;
+			} else {
+				away_points = pointInfo.points;
+			}
+		})
+	}
+
 	/**
-	 * Function to start the game clock
+	 **************************************Function to start the game clock (countup) **********************************
 	 */
 	function startClock () {
-		if (CURRENT_TIME != GAME.TIME_LIMIT) {
+		if (CURRENT_TIME_UP != GAME.game_length) {
 			ISTIMERUNNING = true;
 			io.to(room).emit('current time status', 'start');
 			clockInterval = setInterval(function () {
-				CURRENT_TIME += 1000;
+				CURRENT_TIME_UP += 1000;
 				updateClock();
 			}, 1000);
 		} else {
@@ -145,26 +164,27 @@ function Game (io, db, room) {
 	 // ONLY WORKS FOR UPCOUNTING clock
 	function updateClock () {
 		var printTime;
-		if (CURRENT_TIME >= GAME.TIME_LIMIT) {
+		if (CURRENT_TIME_UP >= GAME.game_length) {
 			clearInterval(clockInterval);
 			stopClock();
 			io.to(room).emit('current time status', 'game finished');
-			saveGame();
 		}
-		var formattedTime = msToTime(CURRENT_TIME);
+		var formattedTime = msToTime(CURRENT_TIME_UP);
 		printTime = formattedTime[1] + ':' + formattedTime[2];
 		io.to(room).emit('current time print', printTime);
 	}
+
 	function saveGame() {
-		/*collection.remove({'room':room},{},function(err) {
-        	if(err) console.log("Error removing live event: "+err));
-    	});*/
+		collection.remove({'room':room},{},function(err) {
+        	if(err) console.log("Error removing live event: "+err);
+    	});
 		console.log(GAME);
 		collection = db.get('pastevents');
 		collection.insert(GAME,function(err,result){ // SOMETHINGS WRONG WITH GAME
 			if (err){
 			    console.log('Error in storing live event: '+err);  
-			    throw err;  
+			    //throw err;  
+			    //ERROR HANDLING HERE!
 			}
 			console.log('Live event stored to pastevents: '+GAME);
 		});

@@ -11,7 +11,7 @@ var FIRST_CONFIG = true;
 var initialConfig;
 //Sport type!
 $(document).ready(function(){
-    var sport = $('#sport-type').data('sport');
+    var sport = $('#sport-type').data('sport').toLowerCase();
     console.log('Sport: '+sport);
 });
 
@@ -59,7 +59,7 @@ socket.on('current time print', function(printTime){
 socket.on('current time status',function(status){
     if(status === 'game finished'){
         document.getElementById('buzzer').play();
-            $('#mainclock').css('color', 'red');
+        $('#mainclock').css('color', 'red');
     }
 });
 

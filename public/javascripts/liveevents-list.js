@@ -2,19 +2,17 @@
 $(document).ready(function() {
 
     // Populate the event table on initial page load
-    populateTable();
-    $("#eventsList table tbody").on('click','tr', function() {
-        document.location = '/live/event/' + $(this).data("room");
-    });
+    populateSite();
+
 
 });
 // Functions =============================================================
 
 // Fill table with data
-function populateTable() {
+function populateSite() {
 
     // Empty content string
-    var tableContent = '';
+    var siteContent = '';
 
     // jQuery AJAX call for JSON
     $.getJSON( '/live/list', function( data ) {
@@ -22,14 +20,14 @@ function populateTable() {
     	console.log(data);
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
-            tableContent += '<tr data-room='+this.room+'>';
-            tableContent += '<td>'+this.sport+'</td>';
-            tableContent += '<td>' + this.team_home + '</td>';
-            tableContent += '<td>'+this.team_away+'</td>';
-            tableContent += '</tr>';
+            siteContent +="<div class='dyn-box event'><a href='/live/event/"+ this.room +"'><figure>";
+            siteContent +="<p>"+this.sport+"</p>";
+            siteContent +="<p>"+this.team_home+"</p>";
+            siteContent +="<p>"+this.team_away+"</p>";
+            siteContent +="</figure></a></div>";
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#eventsList table tbody').html(tableContent);
+        $('#eventsList').html(siteContent);
     });
 };

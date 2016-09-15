@@ -3,7 +3,7 @@ var router = express.Router();
 
 /*GET live event site */
 router.get('/', function(req, res, next) {
-  res.render('liveevents', { title: 'Live events' });
+  res.render('liveevents');
 });
 /* GET live events listing. */
 router.get('/list', function(req, res) {

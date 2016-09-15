@@ -1,22 +1,11 @@
 extends layout
 
 block content
-    h1= title
-    p Welcome to #{title}
-    // Wrapper
-    #wrapper
-        // Past Events List
-        h2 Past Events
-        #pasteventsList
-            table
-                thead
-                    th Home team
-                    th Home score
-                    th Away score
-                    th Away team
-                tbody
-        // /USER LIST
-
-    // /WRAPPER
+    div.container
+        div.row
+            div.col-sm-12.col-md-8.col-md-offset-2
+                h1.text-center Past Events
+                .flex-box-container#pasteventsList
+                //Content
     script(src='/javascripts/pastevents-client.js')
 

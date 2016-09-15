@@ -3,18 +3,36 @@ extends layout
 block content
     div.container
         div.row
-            div.col-sm-6.col-md-4.col-md-offset-4
-                #user
-                    h1.text-center.login-title Welcome #{user.firstName}.
-                    p Here you can:
-                    a(href='/manager/createliveevent') Create new events
-                    br
-                    a(href='/manager/pastevents/delete') Delete past events
-                    br
-                    a(href='/manager/liveevents/delete') Delete created live events
-                    br
-                    a(href='/manager/liveevents/remote') Remote control a live event
-                    br
-                    a(href='/manager/signup', class='text-center new-account') Create an account
-                    br
-                    a(href='/manager/signout', class='text-center new-account') Sign Out
+            div.col-sm-12.col-md-8.col-md-offset-2
+                h1.text-center.login-title #{title}
+                .flex-box-container
+                    .dyn-box
+                        a(href='/manager/createliveevent')
+                            figure 
+                                span(class='glyphicon glyphicon-plus icon-background', aria-hidden='true')
+                                figcaption Create new events
+                    .dyn-box
+                        a(href='/manager/pastevents/delete')
+                            figure
+                                span(class='glyphicon glyphicon-trash icon-background', aria-hidden='true')
+                                figcaption Delete past events
+                    .dyn-box
+                        a(href='/manager/liveevents/delete')
+                            figure
+                                span(class='glyphicon glyphicon-trash icon-background', aria-hidden='true')
+                                figcaption Delete live events
+                    .dyn-box
+                        a(href='/manager/liveevents/remote')
+                            figure
+                                span(class='glyphicon glyphicon-bullhorn icon-background', aria-hidden='true')
+                                figcaption Remote control
+                    .dyn-box
+                        a(href='/manager/signup', class='text-center new-account')
+                            figure
+                                span(class='glyphicon glyphicon-user icon-background', aria-hidden='true')
+                                figcaption Create an account
+                    .dyn-box
+                        a(href='/manager/signout', class='text-center new-account')
+                            figure
+                                span(class='glyphicon glyphicon-log-out icon-background', aria-hidden='true')
+                                figcaption Sign Out

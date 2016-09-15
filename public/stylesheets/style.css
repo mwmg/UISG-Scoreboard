@@ -1,8 +1,89 @@
+/*custom font*/
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+:root {
+  --main-green: #3c903c;
+  --main-green-dark: #2E7B2E;
+  --secondary-color: #327960;
+  --main-green-light: #54AA54;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: montserrat, Helvetica, arial, verdana;
+  font-size: 14px;
+  color: white;
+  text-align: center;
+  background-color: var(--main-green-light); 
 }
 
 a {
-  color: #00B7FF;
+  color: black;
+}
+a:hover {
+  text-decoration: none;
+}
+
+.navbar {
+	background-color: var(--main-green-dark);
+  border: 0;
+}
+.navbar .navbar-brand, .navbar .navbar-nav li a{
+	color: white;
+}
+.navbar .navbar-brand:hover, .navbar .navbar-nav li a:hover{
+	color: black;
+}
+
+.flex-box-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.dyn-box {
+  background: var(--secondary-color);
+  margin: 10px;
+  /* padding: 5px;
+  width: 150px;
+  height: 150px;
+  margin: 10px;
+  line-height: 150px;
+  color: white;
+  font-weight: bold;
+  text-align: center; */
+}
+.dyn-box figure {
+  position: relative;
+  min-width: 150px;
+  height: 150px;
+  color: #f4f4f4;
+
+}
+.dyn-box figure:not('.event') {
+  border-radius: 3px;
+  box-shadow: inset 0 -40px 0 0 rgba(0,0,0,.1);
+  transition: all .2s ease-in-out
+}
+
+.dyn-box figure:hover:not('.event') {
+  box-shadow: inset 0 -150px 0 0 rgba(0,0,0,.2);
+}
+.dyn-box figcaption {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  text-shadow: 0 0 3px #000;
+  bottom: 10px;
+  transition: all .2s ease-in-out
+}
+
+.dyn-box figure:hover figcaption {
+  bottom: 40px
+}
+
+.dyn-box .icon-background {
+  margin-top: 40px;
+  color: white;
+  font-size: 3em;
 }

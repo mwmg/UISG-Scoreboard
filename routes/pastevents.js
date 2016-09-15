@@ -3,7 +3,7 @@ var router = express.Router();
 
 /*GET past event site */
 router.get('/', function(req, res, next) {
-  res.render('pastevents', { title: 'Past events' });
+  res.render('pastevents');
 });
 /* GET past events listing. */
 router.get('/list', function(req, res) {

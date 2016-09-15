@@ -25,16 +25,6 @@ $('#resetclock').click(function () {
 	socket.emit('reset clock', '');
 });
 
-// Button handler to send signal to server to reset shot clock
-$('#shotclock').click(function () {
-	socket.emit('reset shot clock', '');
-});
-
-// Button handler to send signal to server to start a timeout
-$('#timeout').click(function () {
-	socket.emit('start timeout', '');
-});
-
 // Functions to give functionality to plus and minus buttons
 
 $('#teamhomeplus').click(function () {
@@ -86,10 +76,9 @@ socket.on('initial game state', function (state) {
 	$('#teamawayscore').attr('value', initialConfig.team_away_score);
 });
 
-socket.on('current time status', updatePageTimeStatus(status));
-
-function updatePageTimeStatus (status) {
+socket.on('current time status', function(status){
 	var status;
+	console.log(status);
 	if (status === 'start') {
 		status = 'Clock Running';
 	}
@@ -99,8 +88,8 @@ function updatePageTimeStatus (status) {
 	if (status === 'game finished') {
 		status = 'Game finished';
 	}
-	$('#timerstatus').text(status);
-}
+	if(status) $('#timerstatus').text(status);
+});
 
 //==================
 // Functions
