@@ -55,3 +55,6 @@ Steps for liveevents:
 Right now: -saving football game mechanism: button in remote that triggers saving (so that live event persists for a while)
 		-remote.jade modularisieren
 		-
+
+
+!!! Using locally stored frameworks (bootstrap, jquery)! change this for production environment!
