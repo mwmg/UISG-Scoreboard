@@ -1,10 +1,17 @@
 extends event-live
 
+block extraheader
+    link(rel='stylesheet', href='/stylesheets/football-board.css')
+
 block sport
     #sport-type(data-sport="football")
     .text-center#scores
-        .col-md-6#teamhome.score
-        .col-md-6#teamaway.score
+        .col-md-6
+            h4#team_home
+            h2#team_home_score
+        .col-md-6
+            h4#team_away
+            h2#team_away_score
     #maintimercontainer.text-center.container
         h1#mainclock
     .text-center#bottom

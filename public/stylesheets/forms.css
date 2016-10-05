@@ -4,9 +4,6 @@
 /*basic reset*/
 * {margin: 0; padding: 0;}
 
-.hidden {
-	display: none;
-}
 
 #createevent {
 	text-align: center;

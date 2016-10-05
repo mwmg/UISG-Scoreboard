@@ -1,6 +1,30 @@
 extends event-live
 
+block extraheader
+	link(rel='stylesheet', href='/stylesheets/volleyball-board.css')
+
 block sport
-    h1 This is voleyball!
+	#sport-type(data-sport="volleyball")
+	.text-center
+		p#volleyball_status Current set:
+		h3#volleyball_current_set
+		h4#volleyball_current_set_type
+	.text-center
+		.col-xs-6
+			h3#team_home.teamtitle
+			p Sets won:
+			h2#volleyball_team_home_wins
+			p Points current set:
+			h2#volleyball_team_home_points
+		.col-xs-6
+			h3#team_away.teamtitle
+			p Sets won:
+			h2#volleyball_team_away_wins
+			p Points current set:
+			h2#volleyball_team_away_points
+	.text-center#bottom
+		.col-md-2
+			h3#viewer-count
+		.col-md-10
 
 

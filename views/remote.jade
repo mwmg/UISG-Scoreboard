@@ -2,43 +2,79 @@ extends layout
 
 block content
 	h1#maintitle.text-center Remote
-	.container.text-center
-		.col-xs-6
-			button#start.btn.btn-lg.btn-success.timerbutton Start
-		.col-xs-6
-			button#stop.btn.btn-lg.btn-danger.timerbutton Pause
-	.text-center
-		p#timerstatus
-	br
-	.text-center#scores
-		.col-xs-6
-			h3#teamhometitle.teamtitle
-			.btn-group-vertical
-				.scorebutton.btn#teamhomeplus: span.glyphicon.glyphicon-plus
-				input.form-control.text-center#teamhomescore(type="number" disabled)
-				.scorebutton.btn#teamhomeminus: span.glyphicon.glyphicon-minus
-		.col-xs-6#teamaway
-			h3#teamawaytitle.teamtitle
-			.btn-group-vertical
-				.scorebutton.btn#teamawayplus: span.glyphicon.glyphicon-plus
-				input.form-control.text-center#teamawayscore(type="number" disabled)
-				.scorebutton.btn#teamawayminus: span.glyphicon.glyphicon-minus
-	br
-	.text-center
-		button.btn.btn-danger(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
-	br
-	// Popup to confirm clearing the clock
-	#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')
-		.modal-dialog
-			.modal-content
-				.modal-header
-					button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
-					h4.modal-title Reset Game Clock
-				.modal-body
-					h6 WARNING
-					p This will reset the game clock. This action CANNOT be undone.
-				.modal-footer
-					button.btn.btn-success Cancel
-					button#resetclock.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Reset Clock
+	h3#event_name
+	#football.hidden
+		.container.text-center
+			.col-xs-6
+				button#start-timer.btn.btn-lg.btn-success.timerbutton Start
+			.col-xs-6
+				button#stop-timer.btn.btn-lg.btn-danger.timerbutton Pause
+		.text-center
+			p#timerstatus
+			h1#mainclock
+		br
+		.text-center#scores
+			.col-xs-6
+				h3.team_home.teamtitle
+				.btn-group-vertical
+					.scorebutton.btn#teamhomeplus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#team_home_score(type="number" disabled)
+					.scorebutton.btn#teamhomeminus: span.glyphicon.glyphicon-minus
+			.col-xs-6
+				h3.team_away.teamtitle
+				.btn-group-vertical
+					.scorebutton.btn#teamawayplus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#team_away_score(type="number" disabled)
+					.scorebutton.btn#teamawayminus: span.glyphicon.glyphicon-minus
+		br
+		.text-center
+			button.btn.btn-danger(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
+		br
+		// Popup to confirm clearing the clock
+		#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')
+			.modal-dialog
+				.modal-content.invert-text
+					.modal-header
+						button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
+						h4.modal-title Reset Game Clock
+					.modal-body
+						h6 WARNING
+						p This will reset the game clock. This action CANNOT be undone.
+					.modal-footer
+						button.btn.btn-success(data-dismiss='modal' aria-hidden='true') Cancel
+						button#resetclock.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Reset Clock
+	#volleyball.hidden
+		.text-center
+			p#volleyball_status Current set:
+			p#volleyball_current_set
+			p#volleyball_current_set_type
+		.text-center
+			.col-xs-6
+				p.team_home.teamtitle
+				p Sets won:
+				p#volleyball_team_home_wins
+			.col-xs-6
+				p.team_away.teamtitle
+				p Sets won:
+				p#volleyball_team_away_wins
+			// Controls for points
+			.col-xs-6
+				h3.team_home.teamtitle
+				.btn-group-vertical
+					.scorebutton.btn#volleyball_homeplus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#volleyball_team_home_points(type="number" disabled)
+					.scorebutton.btn#volleyball_homeminus: span.glyphicon.glyphicon-minus
+			.col-xs-6
+				h3.team_away.teamtitle
+				.btn-group-vertical
+					.scorebutton.btn#volleyball_awayplus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#volleyball_team_away_points(type="number" disabled)
+					.scorebutton.btn#volleyball_awayminus: span.glyphicon.glyphicon-minus
+
+
+
+
+	#saveGame.text-center.hidden
+		button.btn.btn-primary Save Game
 	script(src="/socket.io/socket.io.js")
 	script(src='/javascripts/remote.js')

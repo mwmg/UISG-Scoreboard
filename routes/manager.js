@@ -78,14 +78,18 @@ module.exports = function(passport){
 				newevent.team_away_score = 0;
 				break;
 			case 'volleyball':
+				console.log(req.body);
 				newevent.sets = [];
-				newevent.sets_win = req.body.sets_win;
-				newevent.sets_pts = req.body.sets_pts;
-				newevent.sets_tie_pts = req.body.sets_tie_pts;
+				newevent.sets[0] = {};
+				newevent.sets[0].team_home_points = 0;
+				newevent.sets[0].team_away_points = 0;
+				newevent.sets_win = parseInt(req.body.sets_win);
+				newevent.sets_pts = parseInt(req.body.sets_pts);
+				newevent.sets_tie_pts = parseInt(req.body.sets_tie_pts);
 				newevent.current_set = 1;
 				newevent.current_set_type = "normal";
-				newevent.home_wins = 0;
-				newevent.away_wins = 0;
+				newevent.team_home_wins = 0;
+				newevent.team_away_wins = 0;
 				break;
 			case 'default':
 				console.log('Invalid sport entered through form');

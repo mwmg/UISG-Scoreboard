@@ -10,7 +10,7 @@ function Game (io, db, room) {
 	var VIEWERS = 0;
 	// retrieving initial game information from DB
 	var collection = db.get('liveevents');
-	collection.find({'room': room}, {}, function(e, docs){
+	collection.find({'room': room}, {}, function (e, docs){
 		if(e){
 			console.log(e);
 		}else if(docs.length === 1){
@@ -25,7 +25,7 @@ function Game (io, db, room) {
 		Socket.io stuff
 	*/
 	function commonSocketStuff(){
-		io.on('connection', function(socket){
+		io.on('connection', function (socket){
 			socket.on(room, function(){
 				socket.room = room;
 				socket.join(room);
@@ -42,9 +42,12 @@ function Game (io, db, room) {
 					VIEWERS--;
 					io.to(room).emit('update viewer count',VIEWERS);
 				});
-				socket.on('message', function(message){
+				socket.on('message', function (message){
 					console.log(message);
 				})
+				socket.on('save game', function(){
+					saveGame();
+				});
 				//start sport specific event handlers
 				switch(GAME.sport.toLowerCase()){
 					case 'football':
@@ -88,7 +91,7 @@ function Game (io, db, room) {
 
 		// socket to receive signal to change score from the remote
 		socket.on('update score', function (newScoreInfo) {
-			if (newScoreInfo.team === GAME.team_home) {
+			if (newScoreInfo.team === 'home') {
 				GAME.team_home_score = newScoreInfo.score;
 			} else {
 				GAME.team_away_score = newScoreInfo.score;
@@ -97,18 +100,27 @@ function Game (io, db, room) {
 		});
 	}
 	function volleyball(socket){
-		socket.on('volleyball point', function(pointInfo){
-			var home_points = GAME.sets[GAME.currentSet].team_home_points;
-			var away_points = GAME.sets[GAME.currentSet].team_away_points;
-			if(pointInfo.team === GAME.team_home){
-				if(currentSet){
-
-				}
-				home_points = pointInfo.points;
-			} else {
-				away_points = pointInfo.points;
+		socket.on('volleyball update points', function (newPointsInfo){
+			if(newPointsInfo.team === 'home'){
+				GAME.sets[GAME.current_set-1].team_home_points = newPointsInfo.points;
+			} else{
+				GAME.sets[GAME.current_set-1].team_away_points = newPointsInfo.points;
 			}
+			io.to(room).emit('volleyball update points signal', newPointsInfo);
 		})
+		socket.on('volleyball update set', function (updateGame){
+			//updates the whole GAME object received from remote.js
+			GAME = updateGame;
+			io.to(room).emit('volleyball update set signal', updateGame);
+		});
+		socket.on('volleyball win', function (team){
+			if(team === 'home'){
+				GAME.winner = GAME.team_home;
+			} else{
+				GAME.winner = GAME.team_away;
+			}
+			io.to(room).emit('volleyball win signal', team);
+		});
 	}
 
 	/**
@@ -171,6 +183,11 @@ function Game (io, db, room) {
 		}
 		var formattedTime = msToTime(CURRENT_TIME_UP);
 		printTime = formattedTime[1] + ':' + formattedTime[2];
+		if(ISTIMERUNNING){
+			io.to(room).emit('current time status', 'Clock Running');
+		}else{
+			io.to(room).emit('current time status', 'Clock Stopped');
+		}
 		io.to(room).emit('current time print', printTime);
 	}
 
