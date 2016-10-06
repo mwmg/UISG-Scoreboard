@@ -172,7 +172,7 @@ socket.on('connect', function(){
 });
 
 $('#saveGame').click(function (){
-	
+	socket.emit('save game');
 });
 
 /*

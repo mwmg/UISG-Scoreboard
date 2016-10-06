@@ -38,23 +38,14 @@ Just temporarilyremove `isAuthenticated` in `routes/manager.js` for the `router.
 
 Currently Working on: Adding volleyball game logic
 ==================================================
-* Change socket.io responses in game.js
-* Create conditions + respective logic in board.js & remote.js
-* Adjust volleyball.jade
-* Adapt creation of event in manager.js
-* Adapt event creation form in createliveevent.jade
+* save finished games to past events
 * Create dynamic jade form
 
 * check game data with Mr. Ellmers
 
-Steps for liveevents:
-* Creating event: createliveevent.jade (X) -> manager.js (X) -> game.js
-* Accessing event: liveevent.js -> sport.jade -> board.js <-> game.js
-* Controlling event: manageliveevent.jade -> manager.js -> remote.jade + remote.js <-> game.js
 
-Right now: -saving football game mechanism: button in remote that triggers saving (so that live event persists for a while)
-		-remote.jade modularisieren
-		-
+Right now: -saving game mechanism: button in remote that triggers saving (so that live event persists for a while)
+
 
 
 !!! Using locally stored frameworks (bootstrap, jquery)! change this for production environment!
