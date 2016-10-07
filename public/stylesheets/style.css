@@ -1,19 +1,20 @@
 /*custom font*/
-@import url(http://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Oswald|Roboto);
 :root {
-  --main-green: #3c903c;
-  --main-green-dark: #2E7B2E;
-  --secondary-color: #327960;
-  --main-green-light: #54AA54;
+  --base: #f4f4f4;
+  --accent: #3d8901;
+  --accent-complementary: #9A716C;
+  --triad-base: #95A1B4;
+  --triad-accent: #74849A;
 }
 
 body {
   padding: 50px;
-  font-family: montserrat, Helvetica, arial, verdana;
+  font-family: 'Roboto', Helvetica, arial, verdana;
   font-size: 14px;
-  color: white;
+  color: var(--triad-accent);
   text-align: center;
-  background-color: var(--main-green-light); 
+  background-color: var(--base); 
 }
 .invert-text {
   color: black;
@@ -30,14 +31,14 @@ a:hover {
 }
 
 .navbar {
-	background-color: var(--main-green-dark);
+	background-color: var(--accent);
   border: 0;
 }
 .navbar .navbar-brand, .navbar .navbar-nav li a{
-	color: white;
+	color: var(--base);
 }
 .navbar .navbar-brand:hover, .navbar .navbar-nav li a:hover{
-	color: black;
+	border-top: black;
 }
 
 .flex-box-container {
@@ -48,7 +49,7 @@ a:hover {
 }
 
 .dyn-box {
-  background: var(--secondary-color);
+  border: 1px solid var(--accent-complementary);
   margin: 10px;
   /* padding: 5px;
   width: 150px;
@@ -63,7 +64,7 @@ a:hover {
   position: relative;
   min-width: 150px;
   height: 150px;
-  color: #f4f4f4;
+  color: var(--triad-base);
   border-radius: 3px;
   box-shadow: inset 0 -40px 0 0 rgba(0,0,0,.1);
   transition: all .2s ease-in-out
@@ -93,4 +94,10 @@ a:hover {
   margin-top: 40px;
   color: white;
   font-size: 3em;
+}
+.glyphicon {
+  color: white;
+}
+.handwriting {
+  font-family: 'Indie Flower', cursive;
 }
