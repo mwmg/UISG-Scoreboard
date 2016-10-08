@@ -7,19 +7,23 @@ html
         link(rel='stylesheet', href='/stylesheets/style.css')
         block extraheader
     body
-        script(src='/javascripts/jquery.min.js') ////ajax.googleapis.com/ajax/libs/jquery/2.0.3/
-        ////maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/
-        script(src="/javascripts/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", crossorigin="anonymous")
         nav.navbar.navbar-light.navbar-fixed-top
             .container-fluid
                 a(href='/pastevents') Past events
                 .navbar-header
-                    span(class='glyphicon glyphicon-fire icon-background brand-icon', aria-hidden='true')
-                    a(class="navbar-brand" id="brand-text" href="/") Scoreboard
+                    a(href="/")
+                        span(class='glyphicon glyphicon-fire', id='brand-icon', aria-hidden='true')
+                        span.nav-brand#brand-text Scoreboard
                 a(href='/live') Live events
-                a(class='float-right' href='/manager') Admin
+                .float-right
+                    a(href='/manager')
+                        span(class='glyphicon glyphicon-user', aria-hidden='true')
+                        span Admin
         #content
             block content
         footer.footer
             p.text-muted.handwriting Home-made by UISG students
+        script(src='/javascripts/jquery.min.js') ////ajax.googleapis.com/ajax/libs/jquery/2.0.3/
+        ////maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/
+        script(src="/javascripts/bootstrap.min.js", integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS", crossorigin="anonymous")
 

@@ -15,7 +15,9 @@ body {
   font-size: 14px;
   color: var(--triad-accent);
   text-align: center;
-  background-color: var(--base); 
+  background-image: url(/images/ricepaper2.png);
+  background-repeat: repeat;
+  /*background-color: var(--base); */
 }
 .invert-text {
   color: black;
@@ -30,7 +32,7 @@ a {
 a:hover {
   text-decoration: none;
 }
-.brand-icon {
+#brand-icon {
   display: block;
   margin: 0 auto;
   width: 50px;
@@ -52,20 +54,27 @@ a:hover {
 .navbar-header {
   display: inline-block;
   float: none;
+  padding: 0px 15px;
   margin:5px;
 }
-.navbar {
-	background-color: var(--base);
-  border: 2px solid var(--triad-base);
+.navbar {]
+	background-color: transparent;
+  margin-bottom: 0;
+}
+.navbar a {
+  color: var(--accent-complementary);
+  font-family: 'Oswald',arial;
+}
+.navbar a:hover{
+  border-bottom: 2px solid var(--accent-complementary);
+}
+.container-fluid {
+  position: relative;
 }
 .float-right {
-  float: right;
-}
-.navbar .navbar-brand, .navbar .navbar-nav li a{
-	color: var(--accent);
-}
-.navbar .navbar-brand:hover, .navbar .navbar-nav li a:hover{
-	border-top: black;
+  position: absolute;
+  right: 30px;
+  bottom: 5px;
 }
 
 .flex-box-container {
@@ -77,6 +86,7 @@ a:hover {
 
 .dyn-box {
   border: 1px solid var(--accent-complementary);
+  background-color: var(--accent-complementary);
   margin: 10px;
   /* padding: 5px;
   width: 150px;
@@ -122,7 +132,9 @@ a:hover {
   color: white;
   font-size: 3em;
 }
-
+.glyphicon {
+  padding: 5px;
+}
 .footer {
   position: absolute;
   bottom: 0;
