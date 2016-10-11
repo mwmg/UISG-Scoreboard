@@ -1,8 +1,11 @@
 # Project
 data
+uploads
 TODO.txt
 seems_like_I_have_a_plan
 models.json
+UISG-Scoreboard.sublime-project
+UISG-Scoreboard.sublime-workspace
 # Node modules #
 node_modules
 
