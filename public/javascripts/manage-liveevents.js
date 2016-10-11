@@ -28,9 +28,10 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr data-room='+this.room+'>';
-            tableContent += '<td>'+this.sport+'</td>';
+            tableContent += '<td>'+this.event_name+'</td>';
             tableContent += '<td>' + this.team_home + '</td>';
             tableContent += '<td>'+this.team_away+'</td>';
+            tableContent += '<td>'+this.room+'</td>';
             tableContent += '</tr>';
         });
 

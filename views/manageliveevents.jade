@@ -1,21 +1,21 @@
 extends layout
 
 block content
-	h1= title
-	// Wrapper
-	#wrapper
-		// Live Events List
-		h2 Live Events
-		#eventsList
-			table
-				thead
-					th Sport
-					th Home team
-					th Away team
-				tbody
-		// /USER LIST
-
-	// /WRAPPER
+	div.container
+		div.row
+			div.col-sm-12.col-md-8.col-md-offset-2
+				h2= title
+				// Live Events List
+				h3 Live Events
+				p Click entry to delete
+				#eventsList.delete-table
+					table
+						thead
+							th Event name
+							th Home team
+							th Away team
+							th Room
+						tbody
 	script.
 		action = "#{action}";
 	script(src='/javascripts/manage-liveevents.js')

@@ -148,6 +148,20 @@ a:hover {
 .event-link {
   display:block;
 }
+/* Styling for deleting events list */
+.delete-table table {
+  width: 100%;
+  text-align: left;
+}
+.delete-table table, th, td {
+  border: 1px solid black;
+}
+.delete-table th, td {
+  padding: 10px;
+}
+.delete-table tr:hover {
+  background-color: #ff8989;
+}
 
 /*Other styling */
 .glyphicon {

@@ -1,22 +1,21 @@
 extends layout
 
 block content
-    h1= title
-    p Welcome to #{title}
-    // Wrapper
-    #wrapper
-        // Past Events List
-        h2 Past Events
-        #pasteventsList
-            table
-                thead
-                    th Home team
-                    th Home score
-                    th Away score
-                    th Away team
-                tbody
-        // /USER LIST
-
-    // /WRAPPER
-    script(src='/javascripts/manage-pastevents.js')
+	div.container
+			div.row
+				div.col-sm-12.col-md-8.col-md-offset-2
+					h2= title
+					p Welcome to #{title}
+					// Past Events List
+					h3 Past Events
+					p Click entry to delete
+					#pasteventsList.delete-table
+						table
+							thead
+								th Home team
+								th Home score
+								th Away score
+								th Away team
+							tbody
+	script(src='/javascripts/manage-pastevents.js')
 
