@@ -19,7 +19,7 @@ function populateSite() {
     	console.log(data);
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
-            siteContent +="<div class='dyn-box event'><figure>";
+            siteContent +="<div class='dyn-box-event'><figure>";
             siteContent +="<p>"+this.team_home+"</p>";
             siteContent +="<p>"+this.team_home_score+"</p>";
             siteContent +="<p>"+this.team_away+"</p>";

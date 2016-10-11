@@ -10,28 +10,27 @@
 }
 
 body {
-  padding-top: 100px;
+  padding-top: 90px;
   font-family: 'Roboto', Helvetica, arial, verdana;
   font-size: 14px;
   color: var(--triad-accent);
   text-align: center;
-  background-image: url(/images/ricepaper2.png);
-  background-repeat: repeat;
-  /*background-color: var(--base); */
-}
-.invert-text {
-  color: black;
+  /*background-image: url(/images/ricepaper2.png);*/
+  /*background-repeat: repeat;*/
+  background-color: var(--base);
 }
 .hidden {
   display: none;
 }
 
 a {
-  color: black;
+  color: var(--base);
 }
 a:hover {
   text-decoration: none;
 }
+/* Styling navigation bar */
+/* Create a CSS-Font-Icon brand */
 #brand-icon {
   display: block;
   margin: 0 auto;
@@ -54,11 +53,11 @@ a:hover {
 .navbar-header {
   display: inline-block;
   float: none;
-  padding: 0px 15px;
+  padding: 0px 25px;
   margin:5px;
 }
-.navbar {]
-	background-color: transparent;
+.navbar {
+	background: transparent;
   margin-bottom: 0;
 }
 .navbar a {
@@ -72,10 +71,10 @@ a:hover {
   position: relative;
 }
 .float-right {
-  position: absolute;
-  right: 30px;
-  bottom: 5px;
+  display:block;
 }
+
+/*Styling for the dyn-boxes in the admin managing panel */
 
 .flex-box-container {
   display: flex;
@@ -88,20 +87,12 @@ a:hover {
   border: 1px solid var(--accent-complementary);
   background-color: var(--accent-complementary);
   margin: 10px;
-  /* padding: 5px;
-  width: 150px;
-  height: 150px;
-  margin: 10px;
-  line-height: 150px;
-  color: white;
-  font-weight: bold;
-  text-align: center; */
 }
 .dyn-box figure {
   position: relative;
   min-width: 150px;
   height: 150px;
-  color: var(--triad-base);
+  color: var(--base);
   border-radius: 3px;
   box-shadow: inset 0 -40px 0 0 rgba(0,0,0,.1);
   transition: all .2s ease-in-out
@@ -111,9 +102,6 @@ a:hover {
   box-shadow: inset 0 -150px 0 0 rgba(0,0,0,.2);
 }
 
-.dyn-box.event figure {
-  box-shadow: none;
-}
 .dyn-box figcaption {
   position: absolute;
   width: 100%;
@@ -132,6 +120,35 @@ a:hover {
   color: white;
   font-size: 3em;
 }
+
+/* Styling for the event boxes in live/past event listing */
+.dyn-box-event {
+  display: block;
+  width: 100%;
+  background-color: white;
+  margin: 5px;
+  color: var(--triad-accent);
+  border: 1px solid var(--triad-accent);
+  border-left-width: 5px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+}
+.dyn-box-event a {
+  display:block;
+  color: var(--triad-accent);
+}
+.dyn-box-event a:hover {
+  color: var(--accent-complementary);
+}
+.team-title {
+  font-size: 18px;
+}
+.event-link {
+  display:block;
+}
+
+/*Other styling */
 .glyphicon {
   padding: 5px;
 }
@@ -142,4 +159,15 @@ a:hover {
 }
 .handwriting {
   font-family: 'Indie Flower', cursive;
+}
+
+/* Mobile First! Desktop Second; Here come changes only for bigger screens */
+
+@media only screen and (min-width: 450px) {
+  /*For larger screens */
+  .float-right {
+    position: absolute;
+    right: 30px;
+    bottom: 5px;
+  }
 }

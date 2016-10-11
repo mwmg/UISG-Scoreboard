@@ -1,5 +1,9 @@
 :root {
-  --main-green: #3c903d;
+  --base: #f4f4f4;
+  --accent: #3d8901;
+  --accent-complementary: #9A716C;
+  --triad-base: #95A1B4;
+  --triad-accent: #74849A;
 }
 /*basic reset*/
 * {margin: 0; padding: 0;}
@@ -10,7 +14,7 @@
 }
 #createevent fieldset:not(.form_game_specific){
 	background: white;
-	border: 1px solid var(--main-green);
+	border: 1px solid var(--accent-complementary);
 	border-left-width: 5px;
 	border-radius: 2px;
 	box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.4);
@@ -42,7 +46,7 @@
 /*buttons*/
 #createevent .action-button, .btn {
 	width: 100px;
-	background: var(--main-green);
+	background: var(--accent-complementary);
 	font-weight: bold;
 	color: white;
 	border: 0 none;
@@ -52,8 +56,8 @@
 	margin: 10px 5px;
 }
 #createevent .action-button:hover, #createevent .action-button:focus, .btn:focus, .btn:hover {
-	box-shadow: 0 0 0 1px white, 0 0 0 2px var(--main-green);
-	background: var(--main-green);
+	box-shadow: 0 0 0 1px white, 0 0 0 2px var(--accent-complementary);
+	background: var(--accent-complementary);
 }
 .form_alert {
 	color: red;
@@ -123,7 +127,7 @@
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-	background: var(--main-green);
+	background: var(--accent-complementary);
 	color: white;
 }
 /* Sign in */
