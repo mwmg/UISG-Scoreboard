@@ -71,10 +71,22 @@ block content
 					input.form-control.text-center#volleyball_team_away_points(type="number" disabled)
 					.scorebutton.btn#volleyball_awayminus: span.glyphicon.glyphicon-minus
 
+	#saveGameModal.text-center.hidden
+		button.btn.btn-primary(data-toggle="modal" data-target="#saveGameConfirm") Save Game
+	// Popup to confirm saving the game
+	#saveGameConfirm.modal.fade(role='dialog' aria-hidden='false')
+		.modal-dialog
+			.modal-content.invert-text
+				.modal-header
+					button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
+					h4.modal-title Save Game
+				.modal-body
+					h6 WARNING
+					p This will remove the game from the live event list. The game will be available in the past events list.
+					p You can not modify the game after this!
+				.modal-footer
+					button.btn.btn-success(data-dismiss='modal' aria-hidden='true') Cancel
+					button#saveGame.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Save Game
 
-
-
-	#saveGame.text-center.hidden
-		button.btn.btn-primary Save Game
 	script(src="/socket.io/socket.io.js")
 	script(src='/javascripts/remote.js')

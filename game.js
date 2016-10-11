@@ -195,6 +195,9 @@ function Game (io, db, room) {
 		collection.remove({'room':room},{},function(err) {
         	if(err) console.log("Error removing live event: "+err);
     	});
+    	var d = new Date();
+    	var dateString = d.getFullYear().toString()+'-'+(d.getMonth()+1).toString()+'-'+d.getDate().toString();
+    	GAME.event_date = dateString;
 		console.log(GAME);
 		collection = db.get('pastevents');
 		collection.insert(GAME,function(err,result){ // SOMETHINGS WRONG WITH GAME

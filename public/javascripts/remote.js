@@ -49,7 +49,7 @@ function football() {
 		}
 		if (status === 'game finished') {
 			status = 'Game finished';
-			$('#saveGame').removeClass('hidden');
+			$('#saveGameModal').removeClass('hidden');
 		}
 		if(status) $('#timerstatus').text(status);
 	});
@@ -173,6 +173,7 @@ socket.on('connect', function(){
 
 $('#saveGame').click(function (){
 	socket.emit('save game');
+	window.location.replace('/pastevents');
 });
 
 /*
@@ -238,6 +239,6 @@ function volleyballWin (team){
 	$('#volleyball_status').text('Game finished');
 	GAME.current_set = GAME.winner + " won!";
 	$('.scorebutton').addClass('hidden');
-	$('#saveGame').removeClass('hidden');
+	$('#saveGameModal').removeClass('hidden');
 	socket.emit('volleyball win', team);
 }

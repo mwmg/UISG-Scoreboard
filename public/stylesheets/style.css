@@ -145,6 +145,10 @@ a:hover {
 .team-title {
   font-size: 18px;
 }
+.team-score {
+  font-size: 24px;
+  font-weight: bold;
+}
 .event-link {
   display:block;
 }
