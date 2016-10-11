@@ -160,7 +160,8 @@ a:hover {
   padding: 10px;
 }
 .delete-table tr:hover {
-  background-color: #ff8989;
+  background-color: var(--accent-complementary);
+  color: var(--base);
 }
 
 /*Other styling */
