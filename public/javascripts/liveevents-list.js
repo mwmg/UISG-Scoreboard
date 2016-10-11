@@ -18,12 +18,21 @@ function populateSite() {
     $.getJSON( '/live/list', function( data ) {
     	console.log("Got data!");
     	console.log(data);
+        if(data.length == 0){
+            siteContent = "<p>No live events right now.</p><p>Please come back later!</p>";
+        }
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             siteContent +="<div class='dyn-box-event'><a href='/live/event/"+ this.room +"'>";
-            siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_home+"</p><img class='box-logo' src='"+ this.team_home_logo+"' alt='Team home logo'></div>";
-            siteContent +="<div class='col-xs-4'><p>"+this.event_name+"</p><img class='box-logo' src='"+ this.event_logo+"' alt='event logo'></div>";
-            siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_away+"</p><img class='box-logo' src='"+ this.team_away_logo+"' alt='Team away logo'></div>";
+            siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_home+"</p>";
+            //siteContent +="<img class='box-logo' src='"+ this.team_home_logo+"' alt='Team home logo'>";
+            siteContent +="</div>";
+            siteContent +="<div class='col-xs-4'><p>"+this.event_name+"</p>";
+            //siteContent +="<img class='box-logo' src='"+ this.event_logo+"' alt='event logo'>";
+            siteContent +="</div>";
+            siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_away+"</p>";
+            //siteContent +="<img class='box-logo' src='"+ this.team_away_logo+"' alt='Team away logo'>";
+            siteContent +="</div>";
             siteContent +="</a></div>";
         });
 

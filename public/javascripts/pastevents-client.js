@@ -17,6 +17,9 @@ function populateSite() {
     $.getJSON( '/pastevents/list', function( data ) {
     	console.log("Got data!");
     	console.log(data);
+        if(data.length == 0){
+            siteContent = "<p>No past events yet.</p><p>Please come back later!</p>";
+        }
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             var team_home_value, team_away_value;
@@ -34,12 +37,15 @@ function populateSite() {
             siteContent +="<div class='dyn-box-event'>";
             siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_home+"</p>";
             siteContent +="<p class='team-score'>"+team_home_value+"</p>";
-            siteContent +="<img class='box-logo' src='"+ this.team_home_logo+"' alt='Team home logo'></div>";
+            //siteContent +="<img class='box-logo' src='"+ this.team_home_logo+"' alt='Team home logo'>";
+            siteContent +="</div>";
             siteContent +="<div class='col-xs-4'><p>"+this.event_date+"</p><p>"+this.event_name+"</p>";
-            siteContent +="<img class='box-logo' src='"+ this.event_logo+"' alt='event logo'></div>";
+            //siteContent +="<img class='box-logo' src='"+ this.event_logo+"' alt='event logo'>";
+            siteContent +="</div>";
             siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_away+"</p>";
             siteContent +="<p class='team-score'>"+team_away_value+"</p>";
-            siteContent +="<img class='box-logo' src='"+ this.team_away_logo+"' alt='Team away logo'></div>";
+            //siteContent +="<img class='box-logo' src='"+ this.team_away_logo+"' alt='Team away logo'>";
+            siteContent +="</div>";
             siteContent +="</div>";
         });
 

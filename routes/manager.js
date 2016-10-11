@@ -3,6 +3,9 @@ var router = express.Router();
 //Include code for running server-side socket.io
 //Handles live events
 var game = require('../game.js');
+var fs = require('fs');
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -63,14 +66,32 @@ module.exports = function(passport){
 	});
 
 	/* POST for creating event */
-	router.post('/createevent',isAuthenticated,function(req,res){
+	var uploadArr = upload.fields([
+		{ name: 'event_logo', maxCount: 1 },
+		{ name: 'team_home_logo', maxCount: 1 },
+		{ name: 'team_away_logo', maxCount: 1 },
+		]);
+	router.post('/createevent',uploadArr,isAuthenticated,function(req,res){
 		var db = req.db;
 		var collection = db.get('liveevents');
 		var newevent = {	"sport": req.body.sport.toLowerCase(),
 							"event_name": req.body.event_name,
 							"team_home": req.body.team_home,
-							"team_away": req.body.team_away,
+							"team_away": req.body.team_away
 						}
+		/*
+		fs.readFile(req.files['event_logo'][0].path, function (err, data){
+			if(err) console.log(err);
+			newevent.event_logo = data;
+		});
+		fs.readFile(req.files['team_home_logo'][0].path, function (err, data){
+			if(err) console.log(err);
+			newevent.team_home_logo = data;
+		});
+		fs.readFile(req.files['team_away_logo'][0].path, function (err, data){
+			if(err) console.log(err);
+			newevent.team_away_logo = data;
+		}); */
 		switch(req.body.sport.toLowerCase()){
 			case 'football':
 				newevent.game_length = req.body.game_length*60000;

@@ -60,6 +60,7 @@ app.use(passport.session());
 // and displaying in templates
 var flash = require('connect-flash');
 app.use(flash());
+//Use formidable for multipart forms
 
 app.use('/', routes);
 app.use('/pastevents', pastevents);

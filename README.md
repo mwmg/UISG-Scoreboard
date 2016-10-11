@@ -38,13 +38,10 @@ Just temporarilyremove `isAuthenticated` in `routes/manager.js` for the `router.
 
 Currently Working on: Adding volleyball game logic
 ==================================================
-* save finished games to past events
-* Create dynamic jade form
+* Get image upload working:
+* Either learn GridFs or how to write binary files to MongoDB
 
 * check game data with Mr. Ellmers
-
-
-Right now: -saving game mechanism: button in remote that triggers saving (so that live event persists for a while)
 
 
 
