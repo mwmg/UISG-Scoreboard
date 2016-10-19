@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald|Roboto);
 @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 :root {
-  --base: #f4f4f4;
+  --base: #f4f4f4;  /*#fffd98 */
   --accent: #3d8901;
   --accent-complementary: #9A716C;
   --triad-base: #95A1B4;
@@ -11,6 +11,7 @@
 
 body {
   padding-top: 90px;
+  padding-bottom: 500px;
   font-family: 'Roboto', Helvetica, arial, verdana;
   font-size: 14px;
   color: var(--triad-accent);
@@ -174,8 +175,95 @@ li {
   background-color: var(--accent-complementary);
   color: var(--base);
 }
+/* Styling for lower board section (comments) */
+#bottom {
+  position: fixed;
+  bottom: 0;
+  padding: 5px;
+  width: 100%;
+  background-color: white;
+}
+#viewer-count {
+  margin: 5px 0;
+  display: inline-block;
+  float: left;
+  font-weight: bold;
+  color: var(--accent-complementary);
+}
+#comment-expand {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: white;
+}
+#comment-expand:focus {
+  outline: none;
+}
+#comment-expand-info, #comment-expand-icon {
+  float: right;
+}
+#comment-expand-info {
+  margin: 5px 5px;
+  display: inline-block;
+  font-style: italic;
+}
+#comment-expand-icon {
+  font-size: 18px;
+}
+.comment-box {
+  height: 100px;
+  overflow: auto;
+}
 
+.comment-container {
+  text-align: left;
+  color: var(--triad-base);
+  border-top: 1px dotted var(--triad-base);
+}
+.comment-username {
+  display: block;
+  font-size: 12px;
+}
+.comment-message {
+  color: var(--triad-accent);
+  font-size: 16px;
+}
+
+.comment-input {
+  border-top: 2px solid var(--accent-complementary);
+}
+
+#input-username, #input-message {
+  float: left;
+  width: 100%;
+  margin: 5px;
+  border: 1px solid var(--triad-base);
+  border-radius: 2px;
+}
+#input-message {
+  margin-bottom: 10px;
+}
+
+#input-send {
+  float: right;
+  height: 100%;
+}
 /*Other styling */
+.btn {
+  width: 70px;
+  background: var(--accent-complementary);
+  font-weight: bold;
+  color: white;
+  border: 0 none;
+  border-radius: 1px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+}
+ .btn:focus, .btn:hover {
+  box-shadow: 0 0 0 1px white, 0 0 0 2px var(--accent-complementary);
+  background: var(--accent-complementary);
+}
 .glyphicon {
   padding: 5px;
 }
@@ -183,6 +271,9 @@ li {
   position: absolute;
   bottom: 0;
   right: 5px;
+}
+.bold {
+  font-weight: bold;
 }
 .handwriting {
   font-family: 'Indie Flower', cursive;

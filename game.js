@@ -8,6 +8,7 @@ function Game (io, db, room) {
 	//var TIME_CUTOFF = 59999; // ms (59.99 seconds)
 	var ISTIMERUNNING = false;
 	var VIEWERS = 0;
+	var COMMENTS = [];
 	// retrieving initial game information from DB
 	var collection = db.get('liveevents');
 	collection.find({'room': room}, {}, function (e, docs){
@@ -36,6 +37,7 @@ function Game (io, db, room) {
 
 				//provide initial game information to viewer
 				socket.emit('initial game state', GAME);
+				socket.emit('initial comments', COMMENTS);
 
 				//keep track of VIEWERS on disconnect
 				socket.on('disconnect',function(){
@@ -46,6 +48,7 @@ function Game (io, db, room) {
 					console.log(message);
 				})
 				socket.on('comment-msg', function (data){
+					COMMENTS.push(data);
 					//Send message to everyone
 					io.to(room).emit('comment-new-msg', data);
 				});

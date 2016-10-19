@@ -23,6 +23,13 @@ $(document).ready(function(){
         default:
             console.log('ERROR: Event from database contains invalid sport type.');
     }
+    $('#input-message').keypress(function(e){
+        if(e.keyCode==13) $('#input-send').click();
+    });
+    $('#input-send').click(function (){
+        sendMessage();
+        $('#input-message').val('');
+    });
 });
 
 /*
@@ -61,22 +68,35 @@ socket.on('initial game state', function (initialState) {
         FIRST_CONFIG = false;
     }
 });
+//socket to receive existing comments
+socket.on('initial comments', function (data){
+    console.log(data);
+    for(var i = 0; i < data.length; i++){
+        var comment = "<div class='comment-container'><span class='comment-username'>"+data[i].username+"</span><span class='comment-message'> "+data[i].message+"</span></div>";
+        $('.comment-box').prepend(comment);
+    }
+});
 
 //Receive viewers update
-socket.on('update viewer count', function(viewers){
+socket.on('update viewer count', function (viewers){
     $('#viewer-count').text('Live viewers: '+viewers);
 });
 
 /*** Implement comment logic ****/
 function sendMessage() {
-    var user = $('#input-username').val();
+    var user;
+    if($('#input-username').val() === ''){
+        user = 'Anonymous';
+    } else {
+        user = $('#input-username').val();
+    }
     var msg = $('#input-message').val();
     if(msg){
         socket.emit('comment-msg',{message: msg, username: user });
     }
 }
 socket.on('comment-new-msg', function (data){
-    var comment = "<div class='comment-container'><span class='bold'>"+data.username+":</span><span class='comment-message'> "+data.message+"</span></div>";
+    var comment = "<div class='comment-container'><span class='comment-username'>"+data.username+"</span><span class='comment-message'> "+data.message+"</span></div>";
     $('.comment-box').prepend(comment);
 });
 

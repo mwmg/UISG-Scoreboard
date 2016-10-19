@@ -4,6 +4,7 @@ var router = express.Router();
 //Handles live events
 var game = require('../game.js');
 var fs = require('fs');
+var mongo = require('mongodb');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
 
@@ -15,6 +16,10 @@ var isAuthenticated = function (req, res, next) {
 		return next();
 	// if the user is not authenticated then redirect him to the login page
 	res.redirect('/manager/login');
+}
+
+function eventToDB(){
+
 }
 
 module.exports = function(passport){
@@ -82,16 +87,21 @@ module.exports = function(passport){
 		/*
 		fs.readFile(req.files['event_logo'][0].path, function (err, data){
 			if(err) console.log(err);
-			newevent.event_logo = data;
+			var string = data.toString('base64');
+			newevent.event_logo = string;
 		});
 		fs.readFile(req.files['team_home_logo'][0].path, function (err, data){
 			if(err) console.log(err);
-			newevent.team_home_logo = data;
+			var string = data.toString('base64');
+			newevent.team_home_logo = string;
 		});
 		fs.readFile(req.files['team_away_logo'][0].path, function (err, data){
 			if(err) console.log(err);
-			newevent.team_away_logo = data;
-		}); */
+			var string = data.toString('base64');
+			newevent.team_away_logo = string;
+			eventToDB();
+		});
+*/
 		switch(req.body.sport.toLowerCase()){
 			case 'football':
 				newevent.game_length = req.body.game_length*60000;
@@ -122,7 +132,8 @@ module.exports = function(passport){
 			    console.log('Error in creating event: '+err);  
 			    throw err;  
 			}
-			console.log('Event created: '+newevent);
+			console.log('Event created: ');
+			console.log(result);
 			res.redirect("/manager/startevent/"+newevent.room);
 		});
 	});
