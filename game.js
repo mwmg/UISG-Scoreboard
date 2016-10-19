@@ -45,6 +45,10 @@ function Game (io, db, room) {
 				socket.on('message', function (message){
 					console.log(message);
 				})
+				socket.on('comment-msg', function (data){
+					//Send message to everyone
+					io.to(room).emit('comment-new-msg', data);
+				});
 				socket.on('save game', function(){
 					saveGame();
 				});

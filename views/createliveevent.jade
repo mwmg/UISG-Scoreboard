@@ -29,8 +29,8 @@ block content
 					label Game length in minutes: 
 						input.form_field.form-control(type="Number", name="game_length", min="0", max="90",step="1",value="60")
 				#form_volleyball_settings.form_game_specific.hidden
-					label Sets to win:
-						input.form_field.form-control(type="Number", name="sets_win", min="1", max="10", step="1", value="3")
+					label Sets to win: (Note: This is the minimum number of sets needed to win)
+						input.form_field.form-control(type="Number", name="sets_win", min="1", max="10", step="1", value="2", disabled)
 					label Points per set:
 						input.form_field.form-control(type="Number", name="sets_pts", min="1", max="25", step="1", value="25")
 					label Number of points in tie break
@@ -43,13 +43,13 @@ block content
 				h3.fs-subtitle Information viewers will see on the event
 				input.form-control(type="text", name="event_name", class="form-control",placeholder="Name of the event",required)
 				label Event logo:
-					input(type="file", name="event_logo", disabled)
+					input(type="file", name="event_logo")
 				input.form-control(type="text", name="team_home", class="form-control", placeholder="Home team", required)
 				label Home team logo:
-					input(type="file", name="team_home_logo", disabled)
+					input(type="file", name="team_home_logo")
 				input.form-control(type="text", name="team_away", class="form-control", placeholder="Guest team", required)
 				label Guest team logo:
-					input(type="file", name="team_away_logo", disabled)
+					input(type="file", name="team_away_logo")
 				input(type="button" name="previous" class="previous action-button" value="Previous")
 				input(type="submit" name="submit" class="submit action-button" value="Submit")
 				//button(class='btn btn-primary btn-block', type='submit') Create

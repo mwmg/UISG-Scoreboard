@@ -26,5 +26,10 @@ block sport
 		.col-md-2
 			h3#viewer-count
 		.col-md-10
+			.comment-box
+			.comment-input
+				input(type='text' name='name' id='input-username' value='Anonymous' placeholder='Username')
+				input(type='text' name='comment' id='input-message' value='' placeholder='Cheer for your team and leave a comment!')
+				button(type='button' name='send-comment' onclick='sendMessage()') Send
 
 
