@@ -53,6 +53,7 @@ socket.on('initial game state', function (initialState) {
     GAME = initialState;
     if (FIRST_CONFIG) {
         $('#tournamentlogo').attr('src', GAME.tournament_logo);
+        $('#event_name').text(GAME.event_name);
         $('#team_home').text(GAME.team_home);
         $('#team_away').text(GAME.team_away);
         switch(SPORT){

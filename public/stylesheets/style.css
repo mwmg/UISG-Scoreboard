@@ -150,6 +150,10 @@ li {
 .team-title {
   font-size: 18px;
 }
+.teamtitle {
+  color: var(--accent);
+}
+
 .team-score {
   font-size: 24px;
   font-weight: bold;
