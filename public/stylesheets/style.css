@@ -11,7 +11,6 @@
 
 body {
   padding-top: 90px;
-  padding-bottom: 500px;
   font-family: 'Roboto', Helvetica, arial, verdana;
   font-size: 14px;
   color: var(--triad-accent);
@@ -20,6 +19,7 @@ body {
   /*background-repeat: repeat;*/
   background-color: var(--base);
 }
+
 .hidden {
   display: none;
 }
@@ -181,6 +181,13 @@ li {
   color: var(--base);
 }
 /* Styling for lower board section (comments) */
+#game-container {
+  padding-bottom: 50px;
+}
+.clearfix {
+  visibility: hidden;
+  clear: both;
+}
 #bottom {
   position: fixed;
   bottom: 0;
