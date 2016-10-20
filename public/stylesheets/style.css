@@ -262,7 +262,7 @@ li {
   height: 100%;
 }
 /*Other styling */
-.btn {
+.btn-send {
   width: 70px;
   background: var(--accent-complementary);
   font-weight: bold;
@@ -273,7 +273,7 @@ li {
   padding: 10px 5px;
   margin: 10px 5px;
 }
- .btn:focus, .btn:hover {
+ .btn-send:focus, .btn-send:hover {
   box-shadow: 0 0 0 1px white, 0 0 0 2px var(--accent-complementary);
   background: var(--accent-complementary);
 }
