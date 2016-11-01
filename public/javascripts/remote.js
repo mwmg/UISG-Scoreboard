@@ -144,6 +144,7 @@ function volleyball_init () {
 */
 socket.on('initial game state', function (state) {
 	GAME = state;
+	console.log(GAME);
 	$('#event_name').text(GAME.event_name);
 	$('.team_home').text(GAME.team_home);
 	$('.team_away').text(GAME.team_away);
