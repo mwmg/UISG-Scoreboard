@@ -3,10 +3,14 @@ var router = express.Router();
 //Include code for running server-side socket.io
 //Handles live events
 var game = require('../game.js');
+var path = require('path');
 var fs = require('fs');
 var mongo = require('mongodb');
 var multer  = require('multer');
 var upload = multer({ dest: 'uploads/' });
+var FLAG_EVENT = false;
+var FLAG_HOME = false;
+var FLAG_AWAY = false;
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -16,10 +20,6 @@ var isAuthenticated = function (req, res, next) {
 		return next();
 	// if the user is not authenticated then redirect him to the login page
 	res.redirect('/manager/login');
-}
-
-function eventToDB(){
-
 }
 
 module.exports = function(passport){
@@ -84,24 +84,59 @@ module.exports = function(passport){
 							"team_home": req.body.team_home,
 							"team_away": req.body.team_away
 						}
-		/*
-		fs.readFile(req.files['event_logo'][0].path, function (err, data){
-			if(err) console.log(err);
-			var string = data.toString('base64');
-			newevent.event_logo = string;
-		});
-		fs.readFile(req.files['team_home_logo'][0].path, function (err, data){
-			if(err) console.log(err);
-			var string = data.toString('base64');
-			newevent.team_home_logo = string;
-		});
-		fs.readFile(req.files['team_away_logo'][0].path, function (err, data){
-			if(err) console.log(err);
-			var string = data.toString('base64');
-			newevent.team_away_logo = string;
-			eventToDB();
-		});
-*/
+		function eventToDB(){
+			if(FLAG_EVENT && FLAG_HOME && FLAG_AWAY){
+				collection.insert(newevent, function(err,result){
+					if (err){
+					    console.log('Error in creating event: '+err);  
+					    throw err;  
+					}
+					console.log('Event created: ');
+					console.log(result);
+					res.redirect("/manager/startevent/"+newevent.room);
+				});
+				FLAG_EVENT = false;
+				FLAG_HOME = false;
+				FLAG_AWAY = false;
+			}
+		}
+		if('event_logo' in req.files){
+			var event_logo_path = path.join(__dirname,'..',req.files['event_logo'][0].path);
+			console.log('inititate event logo read'+ event_logo_path);
+			fs.readFile(event_logo_path, function (err, data){
+				FLAG_EVENT = true;
+				if(err) console.log(err);
+				var string = data.toString('base64');
+				newevent.event_logo = string;
+				eventToDB();
+			});
+		}else {
+			FLAG_EVENT = true;		//makes logos optional; allows eventToDB to run even if one logo wasn't uploaded
+		}
+		if('team_home_logo' in req.files){
+			var team_home_logo = path.join(__dirname,'..', req.files['team_home_logo'][0].path);
+			fs.readFile(team_home_logo, function (err, data){
+				FLAG_HOME = true;
+				if(err) console.log(err);
+				var string = data.toString('base64');
+				newevent.team_home_logo = string;
+				eventToDB();
+			});
+		}else{
+			FLAG_HOME = true;
+		}
+		if('team_away_logo' in req.files){
+			var team_away_logo = path.join(__dirname,'..', req.files['team_away_logo'][0].path);
+			fs.readFile(team_away_logo, function (err, data){
+				FLAG_AWAY = true;
+				if(err) console.log(err);
+				var string = data.toString('base64');
+				newevent.team_away_logo = string;
+				eventToDB();
+			});
+		}else{
+			FLAG_AWAY = true;
+		}
 		switch(req.body.sport.toLowerCase()){
 			case 'football':
 				newevent.game_length = req.body.game_length*60000;
@@ -127,15 +162,6 @@ module.exports = function(passport){
 				break;
 		}
 		newevent.room = (Math.floor(Math.random()*90000) + 10000).toString();
-		collection.insert(newevent, function(err,result){
-			if (err){
-			    console.log('Error in creating event: '+err);  
-			    throw err;  
-			}
-			console.log('Event created: ');
-			console.log(result);
-			res.redirect("/manager/startevent/"+newevent.room);
-		});
 	});
 	/*GET list liveevents and link either to remote or delete the event*/
 	router.get('/liveevents/:id',isAuthenticated,function(req, res, next){
