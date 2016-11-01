@@ -37,14 +37,14 @@ function populateSite() {
             siteContent +="<div class='dyn-box-event'>";
             siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_home+"</p>";
             siteContent +="<p class='team-score'>"+team_home_value+"</p>";
-            //siteContent +="<img class='box-logo' src='"+ this.team_home_logo+"' alt='Team home logo'>";
+            if(this.team_home_logo) siteContent +="<img class='box-logo' src='data:image/png;base64,"+ this.team_home_logo+"' alt='Team home logo'>";
             siteContent +="</div>";
             siteContent +="<div class='col-xs-4'><p>"+this.event_date+"</p><p>"+this.event_name+"</p>";
-            //siteContent +="<img class='box-logo' src='"+ this.event_logo+"' alt='event logo'>";
+            if(this.event_logo) siteContent +="<img class='box-logo' src='data:image/png;base64,"+ this.event_logo+"' alt='event logo'>";
             siteContent +="</div>";
             siteContent +="<div class='col-xs-4'><p class='team-title'>"+this.team_away+"</p>";
             siteContent +="<p class='team-score'>"+team_away_value+"</p>";
-            //siteContent +="<img class='box-logo' src='"+ this.team_away_logo+"' alt='Team away logo'>";
+            if(this.team_away_logo) siteContent +="<img class='box-logo' src='data:image/png;base64,"+ this.team_away_logo+"' alt='Team away logo'>";
             siteContent +="</div>";
             siteContent +="</div>";
         });
