@@ -11,6 +11,7 @@ var upload = multer({ dest: 'uploads/' });
 var FLAG_EVENT = false;
 var FLAG_HOME = false;
 var FLAG_AWAY = false;
+var FLAG_READY = false;
 
 var isAuthenticated = function (req, res, next) {
 	// if user is authenticated in the session, call the next() to call the next request handler 
@@ -85,7 +86,7 @@ module.exports = function(passport){
 							"team_away": req.body.team_away
 						}
 		function eventToDB(){
-			if(FLAG_EVENT && FLAG_HOME && FLAG_AWAY){
+			if(FLAG_EVENT && FLAG_HOME && FLAG_AWAY && FLAG_READY){
 				collection.insert(newevent, function(err,result){
 					if (err){
 					    console.log('Error in creating event: '+err);  
@@ -98,6 +99,7 @@ module.exports = function(passport){
 				FLAG_EVENT = false;
 				FLAG_HOME = false;
 				FLAG_AWAY = false;
+				FLAG_READY = false;
 			}
 		}
 		if('event_logo' in req.files){
@@ -162,6 +164,8 @@ module.exports = function(passport){
 				break;
 		}
 		newevent.room = (Math.floor(Math.random()*90000) + 10000).toString();
+		FLAG_READY = true;
+		eventToDB();
 	});
 	/*GET list liveevents and link either to remote or delete the event*/
 	router.get('/liveevents/:id',isAuthenticated,function(req, res, next){
