@@ -203,6 +203,11 @@ li {
   font-weight: bold;
   color: var(--accent-complementary);
 }
+
+#warnings {
+  color: red;
+}
+
 #comment-expand {
   display: block;
   width: 100%;

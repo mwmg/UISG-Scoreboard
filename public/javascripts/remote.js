@@ -22,7 +22,10 @@ function pingServer() {
 
 socket.on('ping back', function(){
 	var lag = Date.now() - sent;
-	$('#warnings').text('Lag: '+lag+'ms');
+	if(lag > 49){
+		$('#warnings').text('You might experience lags due to slow internet connectivity.');
+		console.log(lag);
+	}
 })
 
 function football() {
