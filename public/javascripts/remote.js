@@ -3,6 +3,8 @@ var room = currentRoom();
 
 var GAME;
 
+var ping = setInterval(pingServer, 5000);
+
 /*
 ************************************** Main Functions ****************************************
 */
@@ -12,6 +14,16 @@ function currentRoom () {
     var pathArray = window.location.pathname.split( '/' );
     return pathArray[pathArray.length - 1];
 }
+
+function pingServer() {
+	sent = Date.now();
+	socket.emit('ping test');
+}
+
+socket.on('ping back', function(){
+	var lag = Date.now() - sent;
+	$('#warnings').text('Lag: '+lag+'ms');
+})
 
 function football() {
 	$('#football').removeClass('hidden');

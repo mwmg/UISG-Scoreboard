@@ -52,6 +52,9 @@ function Game (io, db, room) {
 					//Send message to everyone
 					io.to(room).emit('comment-new-msg', data);
 				});
+				socket.on('ping test', function(){
+					io.to(room).emit('ping back');
+				});
 				socket.on('save game', function(){
 					saveGame();
 				});
