@@ -85,6 +85,7 @@ function Game (io, db, room) {
 
 		// socket to recieve 'start' signal from the remote
 		socket.on('start time', function () {
+			console.log("Received signal");
 			if (!ISTIMERUNNING) startClock();
 			io.to(room).emit('current time status', 'start');
 		});
@@ -138,9 +139,10 @@ function Game (io, db, room) {
 			ISTIMERUNNING = true;
 			io.to(room).emit('current time status', 'start');
 			clockInterval = setInterval(function () {
-				CURRENT_TIME_UP += 1000;
-				updateClock();
-			}, 1000);
+				CURRENT_TIME_UP += 10;
+				if((CURRENT_TIME_UP % 1000) === 0) updateClock();
+			}, 10);
+			console.log("Started clock");
 		} else {
 			io.to(room).emit('current time status', 'pause');
 		}
@@ -190,6 +192,7 @@ function Game (io, db, room) {
 		}
 		var formattedTime = msToTime(CURRENT_TIME_UP);
 		printTime = formattedTime[1] + ':' + formattedTime[2];
+		console.log(printTime);
 		if(ISTIMERUNNING){
 			io.to(room).emit('current time status', 'Clock Running');
 		}else{
