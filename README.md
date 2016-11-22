@@ -7,10 +7,9 @@ Work on:
 ========
 * Dynamic homepage based on existing live events
 * Design
-* Incorporating several sports, i.e. basketball, volleyball
+* Incorporating basketball, 
 * Individual past event site
 * Credits site
-* Logo image file upload
 * Add times/dates
 
 What should work:
@@ -24,8 +23,8 @@ What should work:
 
 Installation
 ============
-*I hope I remember this correctly*
-After cloning just
+Requisites: Node.js, npm & MongoDB installed
+After cloning the project from Github, in the directory.
 ```
 npm install
 ```
@@ -36,13 +35,12 @@ Don't forget to take a look at `app.js` and change the link to the database `var
 Also the creation of a new user is protected by default, for which reason at the first time you can should take out authentication for that site, to create a user to the database using the form.
 Just temporarilyremove `isAuthenticated` in `routes/manager.js` for the `router.get('signup',...)` part.
 
-Currently Working on: Adding volleyball game logic
+Currently Working on:
 ==================================================
-* Get image upload working:
-* Either learn GridFs or how to write binary files to MongoDB
-
-* check game data with Mr. Ellmers
+* Add Basketball functionality
+* Organize events differently: organize into tournaments and different sports
 
 
-
+Notes:
+=======
 !!! Using locally stored frameworks (bootstrap, jquery)! change this for production environment!
