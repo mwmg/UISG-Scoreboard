@@ -1,0 +1,143 @@
+$color-base: #f4f4f4;  /*#fffd98 */
+$color-accent: #3d8901;
+$color-accent-complementary: #9A716C;
+$color-triad-base: #95A1B4;
+$color-triad-accent: #74849A;
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+.form-signin input {
+	padding: 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	font-family: 'Roboto', Helvetica, arial, verdana;
+	color: #2C3E50;
+	font-size: 13px;
+}
+
+#createevent {
+	text-align: center;
+	fieldset:not(.form_game_specific){
+		background: white;
+		border: 1px solid $color-accent-complementary;
+		border-left-width: 5px;
+		border-radius: 2px;
+		box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.4);
+		padding: 20px 30px;
+	}
+	/*Hide all except first fieldset */
+	.form_section:not(:first-of-type) {
+		display: none;
+	}
+	input, label{
+		padding: 15px;
+		border: 1px solid #ccc;
+		border-radius: 3px;
+		margin-bottom: 10px;
+		width: 100%;
+		box-sizing: border-box;
+		font-family: 'Roboto', Helvetica, arial, verdana;
+		color: #2C3E50;
+		font-size: 13px;
+	}
+	label:not(.radio) {
+		border: 0 none;
+		padding: 0;
+		text-align: left;
+	}
+	.action-button, .btn {
+		width: 100px;
+		background: $color-accent-complementary;
+		font-weight: bold;
+		color: white;
+		border: 0 none;
+		border-radius: 1px;
+		cursor: pointer;
+		padding: 10px 5px;
+		margin: 10px 5px;
+	}
+	.action-button:hover, #createevent .action-button:focus, .btn:focus, .btn:hover {
+		box-shadow: 0 0 0 1px white, 0 0 0 2px $color-accent-complementary;
+		background: $color-accent-complementary;
+	}
+}
+.form_alert {
+	color: red;
+}
+/* headings */
+.fs-title {
+	font-size: 15px;
+	text-transform: uppercase;
+	color: #2C3E50;
+	margin: 10px;
+	padding: 0;
+}
+
+.fs-subtitle {
+	font-weight: normal;
+	font-size: 13px;
+	color: #666;
+	margin: 10px;
+	margin-bottom: 20px;
+	padding: 0;
+}
+
+/* progressbar */
+#progressbar {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	overflow: hidden;
+	/*CSS counters to number the steps*/
+	counter-reset: step;
+	li {
+		list-style-type: none;
+		text-transform: uppercase;
+		font-size: 9px;
+		text-align: center;
+		width: 33.33%;
+		float: left;
+		position: relative;
+	}
+	li:before {
+		content: counter(step);
+		counter-increment: step;
+		width: 20px;
+		line-height: 20px;
+		display: block;
+		font-size: 10px;
+		text-align: center;
+		color: #333;
+		background: white;
+		border-radius: 3px;
+		margin: 0 auto 5px auto;
+	}
+	/*progressbar connectors*/
+	li:after {
+		content: '';
+		width: 100%;
+		height: 2px;
+		background: black;
+		position: absolute;
+		left: -50%;
+		top: 9px;
+		z-index: -1; /*put it behind the numbers*/
+	}
+	li:first-child:after {
+		/*connector not needed before the first step*/
+		content: none; 
+	}
+	/*marking active/completed steps green*/
+	/*The number of the step and the connector before it = green*/
+	li.active:before,  #progressbar li.active:after{
+		background: $color-accent-complementary;
+		color: white;
+	}
+}
+/* Sign in */
+.account-wall, .signup-wall {
+	margin: 15px;
+}

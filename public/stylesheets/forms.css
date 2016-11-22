@@ -1,136 +1,128 @@
-:root {
-  --base: #f4f4f4;
-  --accent: #3d8901;
-  --accent-complementary: #9A716C;
-  --triad-base: #95A1B4;
-  --triad-accent: #74849A;
-}
+/*#fffd98 */
 /*basic reset*/
-* {margin: 0; padding: 0;}
+* {
+  margin: 0;
+  padding: 0; }
 
+.form-signin input {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Roboto', Helvetica, arial, verdana;
+  color: #2C3E50;
+  font-size: 13px; }
 
 #createevent {
-	text-align: center;
-}
-#createevent fieldset:not(.form_game_specific){
-	background: white;
-	border: 1px solid var(--accent-complementary);
-	border-left-width: 5px;
-	border-radius: 2px;
-	box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.4);
-	padding: 20px 30px;
-}
-/*Hide all except first fieldset */
-#createevent .form_section:not(:first-of-type) {
-	display: none;
-}
+  text-align: center;
+  /*Hide all except first fieldset */ }
+  #createevent fieldset:not(.form_game_specific) {
+    background: white;
+    border: 1px solid #9A716C;
+    border-left-width: 5px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px; }
+  #createevent .form_section:not(:first-of-type) {
+    display: none; }
+  #createevent input, #createevent label {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Roboto', Helvetica, arial, verdana;
+    color: #2C3E50;
+    font-size: 13px; }
+  #createevent label:not(.radio) {
+    border: 0 none;
+    padding: 0;
+    text-align: left; }
+  #createevent .action-button, #createevent .btn {
+    width: 100px;
+    background: #9A716C;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px; }
+  #createevent .action-button:hover, #createevent #createevent .action-button:focus, #createevent .btn:focus, #createevent .btn:hover {
+    box-shadow: 0 0 0 1px white, 0 0 0 2px #9A716C;
+    background: #9A716C; }
 
-/* inputs */
-#createevent input, #createevent label, .form-signin input {
-	padding: 15px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
-	margin-bottom: 10px;
-	width: 100%;
-	box-sizing: border-box;
-	font-family: 'Roboto', Helvetica, arial, verdana;
-	color: #2C3E50;
-	font-size: 13px;
-}
-#createevent label:not(.radio) {
-	border: 0 none;
-	padding: 0;
-	text-align: left;
-}
-/* Navigation buttons */
-/*buttons*/
-#createevent .action-button, .btn {
-	width: 100px;
-	background: var(--accent-complementary);
-	font-weight: bold;
-	color: white;
-	border: 0 none;
-	border-radius: 1px;
-	cursor: pointer;
-	padding: 10px 5px;
-	margin: 10px 5px;
-}
-#createevent .action-button:hover, #createevent .action-button:focus, .btn:focus, .btn:hover {
-	box-shadow: 0 0 0 1px white, 0 0 0 2px var(--accent-complementary);
-	background: var(--accent-complementary);
-}
 .form_alert {
-	color: red;
-}
+  color: red; }
+
 /* headings */
 .fs-title {
-	font-size: 15px;
-	text-transform: uppercase;
-	color: #2C3E50;
-	margin: 10px;
-	padding: 0;
-}
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #2C3E50;
+  margin: 10px;
+  padding: 0; }
 
 .fs-subtitle {
-	font-weight: normal;
-	font-size: 13px;
-	color: #666;
-	margin: 10px;
-	margin-bottom: 20px;
-	padding: 0;
-}
+  font-weight: normal;
+  font-size: 13px;
+  color: #666;
+  margin: 10px;
+  margin-bottom: 20px;
+  padding: 0; }
 
 /* progressbar */
 #progressbar {
-	margin-top: 30px;
-	margin-bottom: 30px;
-	overflow: hidden;
-	/*CSS counters to number the steps*/
-	counter-reset: step;
-}
-#progressbar li {
-	list-style-type: none;
-	text-transform: uppercase;
-	font-size: 9px;
-	width: 33.33%;
-	float: left;
-	position: relative;
-}
-#progressbar li:before {
-	content: counter(step);
-	counter-increment: step;
-	width: 20px;
-	line-height: 20px;
-	display: block;
-	font-size: 10px;
-	color: #333;
-	background: white;
-	border: 1px solid black;
-	border-radius: 3px;
-	margin: 0 auto 5px auto;
-}
-/*progressbar connectors*/
-#progressbar li:after {
-	content: '';
-	width: 100%;
-	height: 2px;
-	background: black;
-	position: absolute;
-	left: -50%;
-	top: 9px;
-	z-index: -1; /*put it behind the numbers*/
-}
-#progressbar li:first-child:after {
-	/*connector not needed before the first step*/
-	content: none; 
-}
-/*marking active/completed steps green*/
-/*The number of the step and the connector before it = green*/
-#progressbar li.active:before,  #progressbar li.active:after{
-	background: var(--accent-complementary);
-	color: white;
-}
+  margin-top: 30px;
+  margin-bottom: 30px;
+  overflow: hidden;
+  /*CSS counters to number the steps*/
+  counter-reset: step;
+  /*progressbar connectors*/
+  /*marking active/completed steps green*/
+  /*The number of the step and the connector before it = green*/ }
+  #progressbar li {
+    list-style-type: none;
+    text-transform: uppercase;
+    font-size: 9px;
+    text-align: center;
+    width: 33.33%;
+    float: left;
+    position: relative; }
+  #progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 20px;
+    line-height: 20px;
+    display: block;
+    font-size: 10px;
+    text-align: center;
+    color: #333;
+    background: white;
+    border-radius: 3px;
+    margin: 0 auto 5px auto; }
+  #progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: black;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1;
+    /*put it behind the numbers*/ }
+  #progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none; }
+  #progressbar li.active:before, #progressbar #progressbar li.active:after {
+    background: #9A716C;
+    color: white; }
+
 /* Sign in */
 .account-wall, .signup-wall {
-	margin: 15px;
-}
+  margin: 15px; }
+
+/*# sourceMappingURL=forms.css.map */
