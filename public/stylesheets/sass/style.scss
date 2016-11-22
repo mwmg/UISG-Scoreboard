@@ -8,6 +8,24 @@ $color-accent-complementary: #9A716C;
 $color-triad-base: #95A1B4;
 $color-triad-accent: #74849A;
 
+@mixin display-flex {
+	display: -webkit-flex;
+	display: flex;
+}
+@mixin flex-direction($x){
+	-webkit-flex-direction: $x;
+	flex-direction: $x;
+}
+@mixin flex-wrap($x){
+	-webkit-flex-wrap: $x;
+	flex-wrap: $x;
+}
+
+@mixin justify-content($x) {
+	-webkit-justify-content: $x;
+	justify-content: $x;
+}
+
 body {
 	padding-top: 90px;
 	font-family: 'Roboto', Helvetica, arial, verdana;
@@ -81,10 +99,10 @@ li {
 /*Styling for the dyn-boxes in the admin managing panel */
 
 .flex-box-container {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: flex-start;
+	@include display-flex;
+	@include flex-direction(row);
+	@include flex-wrap(wrap);
+	@include justify-content(flex-start);
 }
 
 .dyn-box {

@@ -68,9 +68,13 @@ li {
 
 /*Styling for the dyn-boxes in the admin managing panel */
 .flex-box-container {
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: row;
   flex-direction: row;
+  -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-justify-content: flex-start;
   justify-content: flex-start; }
 
 .dyn-box {
