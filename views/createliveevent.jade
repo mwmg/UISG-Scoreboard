@@ -20,6 +20,9 @@ block content
 				label.radio
 					input.form_field(type="radio", name="sport", value="volleyball")
 					| Volleyball
+				label.radio
+					input.form_field(type="radio", name="sport", value="basketball")
+					| Basketball
 				.form_alert
 				input(type="button" name="next" class="next action-button" value="Next")
 			fieldset#form_settings.form-group.form_section
@@ -35,6 +38,9 @@ block content
 						input.form_field.form-control(type="Number", name="sets_pts", min="1", max="25", step="1", value="25")
 					label Number of points in tie break
 						input.form_field.form-control(type="Number", name="sets_tie_pts", min="1", max="15", step="1", value="15")
+				#form_basketball_settings.form_game_specific.hidden
+					label Length of each period in minutes:
+						input.form_field.form-control(type="Number", name="countdown_length", min="1", max="20", step="1", value="12")
 				.form_alert
 				input(type="button" name="previous" class="previous action-button" value="Previous")
 				input(type="button" name="next" class="next action-button" value="Next")

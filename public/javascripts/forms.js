@@ -4,13 +4,15 @@ $(document).ready(function(){
 	var sport = $('#form_sport_type input:radio[name=sport]');
 	//dependent fields:
 	var football = $('#form_football_settings');
-	var volleyball = $('#form_volleyball_settings')
+	var volleyball = $('#form_volleyball_settings');
+	var basketball = $('#form_basketball_settings');
 	var all = football.add(volleyball);
 	sport.change(function(){
 		var value = this.value;
 		all.addClass('hidden');
 		if(value === 'football') football.removeClass('hidden');
 		if(value === 'volleyball') volleyball.removeClass('hidden');
+		if(value === 'basketball') basketball.removeClass('hidden');
 	});
 	//***** Step by step form logic ************
 	//credits go to thecodeplayer.com

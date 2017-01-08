@@ -290,7 +290,7 @@ function Game (io, db, room) {
 			io.to(room).emit('current countdown status', 'game finished');
 		}
 		var formattedTime = msToTime(CURRENT_TIME_DOWN);
-		printTime = formattedTime[1] + ':' formattedTime[2];
+		printTime = formattedTime[1] + ':' + formattedTime[2];
 		if(ISTIMERUNNING){
 			io.to(room).emit('current countdown status', 'Timer Running');
 		}else{
