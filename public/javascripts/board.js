@@ -181,8 +181,23 @@ function basketball() {
         } else {
             GAME.team_away_score = newScoreInfo.score;
         }
-        basketball_init_init();
+        basketball_init();
     });
+
+    // socket to update the fouls
+    socket.on('update foul signal', function (newFoulInfo) {
+        if(newFoulInfo.team === 'home'){
+            GAME.team_home_foul = newFoulInfo.foul;
+        } else {
+            GAME.team_away_foul = newFoulInfo.foul;
+        }
+        basketball_init();
+    });
+
+    socket.on('change period signal', function (newPeriod){
+        GAME.current_quarter = newPeriod;
+        basketball_init();
+    })
 }
 /*
 ************************************** Initial Functions ****************************************

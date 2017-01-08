@@ -17,6 +17,9 @@ function Game (io, db, room) {
 			console.log(e);
 		}else if(docs.length === 1){
 			GAME = docs[0];
+
+			// Initiate basketball
+			CURRENT_TIME_DOWN = GAME.countdown_length || 0;
 			commonSocketStuff();
 		}else{
 			console.log('ERROR: event with invalid room number has been started.');
@@ -187,7 +190,12 @@ function Game (io, db, room) {
 			} else {
 				GAME.team_away_foul = newFoulInfo.foul;
 			}
-			io.to(room).emit('update score signal', newFoulInfo);
+			io.to(room).emit('update foul signal', newFoulInfo);
+		});
+
+		socket.on('change period', function (newPeriod){
+			GAME.current_quarter = newPeriod;
+			io.to(room).emit('change period signal', newPeriod);
 		});
 	}
 
