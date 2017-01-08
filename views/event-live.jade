@@ -2,9 +2,22 @@ extends layout
 
 block content
     h3 Live
+    block sport
+    .clearfix What a hack!
+    #bottom
+        .container-fluid
+            button( type='button' class='collapsed' id='comment-expand' data-toggle='collapse' data-target='#comment-all' aria-expanded='false')
+                p#viewer-count OMG
+                span(class='glyphicon glyphicon-menu-up' id='comment-expand-icon' aria-hidden='true')
+                p#comment-expand-info Comments
+            .collapse#comment-all
+                .comment-box
+                .comment-input
+                    .col-xs-8
+                        input(type='text' name='name' id='input-username' value='' placeholder='Username')
+                        textarea(name='comment' id='input-message' rows='2' value='' placeholder='Cheer for your team and leave a comment!')
+                    .col-xs-4
+                        button(type='button' name='send-comment' class='btn btn-lg btn-primary btn-send' id='input-send') Send
     audio#buzzer(src="/sound/buzzer.mp3" preload="auto")
     script(src="/socket.io/socket.io.js")
     script(src='/javascripts/board.js')
-    block sport
-
-

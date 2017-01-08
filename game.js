@@ -36,6 +36,7 @@ function Game (io, db, room) {
 				//keep track of VIEWERS
 				console.log('LOG: A user connected to '+room+'.');
 				VIEWERS++;
+				console.log('Viewers count:'+ VIEWERS);
 				io.to(room).emit('update viewer count',VIEWERS);
 
 				//provide initial game information to viewer

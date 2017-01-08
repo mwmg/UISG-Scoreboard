@@ -20,6 +20,9 @@ $(document).ready(function(){
         case 'volleyball':
             volleyball();
             break;
+        case 'basketball':
+            basketball();
+            break;
         default:
             console.log('ERROR: Event from database contains invalid sport type.');
     }
@@ -63,6 +66,9 @@ socket.on('initial game state', function (initialState) {
             case 'volleyball':
                 volleyball_init();
                 break;
+            case 'basketball':
+                basketball_init();
+                break;
             default:
                 console.log('ERROR: Event from database contains invalid sport type.');
         }
@@ -80,7 +86,7 @@ socket.on('initial comments', function (data){
 
 //Receive viewers update
 socket.on('update viewer count', function (viewers){
-    $('#viewer-count').text('Live viewers: '+viewers);
+    $('p#viewer-count').text('Live viewers: '+viewers);
 });
 
 /*** Implement comment logic ****/
@@ -153,6 +159,31 @@ function volleyball () {
         $('#volleyball_current_set').text($('#team_'+team).text() + ' won!');
     })
 }
+
+function basketball() {
+    // receive timer update
+    socket.on('current countdown print', function (printTime){
+        $('#basketball_timer').text(printTime);
+    });
+
+    //When game finishes
+    socket.on('current countdown status',function(status){
+        if(status === 'game finished'){
+            document.getElementById('buzzer').play();
+            $('#basketball_timer').css('color', 'red');
+        }
+    });
+
+    // socket to update the score
+    socket.on('update score signal', function (newScoreInfo) {
+        if(newScoreInfo.team === 'home'){
+            GAME.team_home_score = newScoreInfo.score;
+        } else {
+            GAME.team_away_score = newScoreInfo.score;
+        }
+        basketball_init_init();
+    });
+}
 /*
 ************************************** Initial Functions ****************************************
 */
@@ -170,6 +201,14 @@ function volleyball_init () {
     if(GAME.current_set_type === 'tiebreak'){
         $('#volleyball_current_set_type').text('Tiebreak');
     }
+}
+
+function basketball_init () {
+    $('#team_home_score').text(GAME.team_home_score);
+    $('#team_away_score').text(GAME.team_away_score);
+    $('#team_home_foul').text(GAME.team_home_foul);
+    $('#team_away_foul').text(GAME.team_away_foul);
+    $('#basketball_current_quarter').text(GAME.current_quarter);
 }
 
 /*

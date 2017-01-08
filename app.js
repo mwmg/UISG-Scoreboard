@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 // Database
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('test:pass@ds013545.mlab.com:13545/scoreboard'); 
+var db = monk('127.0.0.1:27017/scoreboard'); 
 //locally: 127.0.0.1:27017/scoreboard
 //external DB: test:pass@ds013545.mlab.com:13545/scoreboard
 
@@ -60,7 +60,6 @@ app.use(passport.session());
 // and displaying in templates
 var flash = require('connect-flash');
 app.use(flash());
-//Use formidable for multipart forms
 
 app.use('/', routes);
 app.use('/pastevents', pastevents);
