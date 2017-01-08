@@ -1,0 +1,24 @@
+extends event-live
+
+block sport
+    #sport-type(data-sport="basketball")
+    #game-container
+        h4#event_name
+        .text-center
+            p Timer
+            h2#basketball_timer
+            p Current period:
+            h3#basketball_current_quarter
+        .text-center
+            .col-xs-6.team_section
+                h3#team_home.teamtitle
+                p Score:
+                h2#team_home_score
+                p Fouls:
+                h2#team_home_foul
+            .col-xs-6.team_section
+                h3#team_away.teamtitle
+                p Score:
+                h2#team_away_score
+                p Fouls:
+                h2#team_away_foul

@@ -1,14 +1,15 @@
 function Game (io, db, room) {
 	console.log('LOG: A socket for room ' + room + ' has been started.');
-	//==================
+
 	// Game variables
-	//==================
 	var GAME;
-	var CURRENT_TIME_UP = 0;
-	//var TIME_CUTOFF = 59999; // ms (59.99 seconds)
+	var CURRENT_TIME_UP = 0;	//for football
+	var CURRENT_TIME_DOWN;		// countdown for basketball
+
 	var ISTIMERUNNING = false;
 	var VIEWERS = 0;
 	var COMMENTS = [];
+
 	// retrieving initial game information from DB
 	var collection = db.get('liveevents');
 	collection.find({'room': room}, {}, function (e, docs){
@@ -16,23 +17,29 @@ function Game (io, db, room) {
 			console.log(e);
 		}else if(docs.length === 1){
 			GAME = docs[0];
+
+			// Initiate basketball
+			CURRENT_TIME_DOWN = GAME.countdown_length || 0;
 			commonSocketStuff();
 		}else{
 			console.log('ERROR: event with invalid room number has been started.');
 		}
 	});
-	//Functions
-	/*
-		Socket.io stuff
-	*/
+
+	// -- All other functions --
+	
+	// Socket.io stuff
 	function commonSocketStuff(){
 		io.on('connection', function (socket){
 			socket.on(room, function(){
+				//set current room
 				socket.room = room;
 				socket.join(room);
-				console.log('LOG: A user connected to '+room+'.');
+
 				//keep track of VIEWERS
+				console.log('LOG: A user connected to '+room+'.');
 				VIEWERS++;
+				console.log('Viewers count:'+ VIEWERS);
 				io.to(room).emit('update viewer count',VIEWERS);
 
 				//provide initial game information to viewer
@@ -44,27 +51,39 @@ function Game (io, db, room) {
 					VIEWERS--;
 					io.to(room).emit('update viewer count',VIEWERS);
 				});
+
+				//Debugging event
 				socket.on('message', function (message){
 					console.log(message);
 				})
+
+				// Comment functonality
 				socket.on('comment-msg', function (data){
 					COMMENTS.push(data);
 					//Send message to everyone
 					io.to(room).emit('comment-new-msg', data);
 				});
+				
 				socket.on('ping test', function(){
 					io.to(room).emit('ping back');
 				});
+
+				//save game to DB - must be requested by remote
 				socket.on('save game', function(){
 					saveGame();
 				});
+
 				//start sport specific event handlers
+				// The socket object needs to be passed on for this to work
 				switch(GAME.sport.toLowerCase()){
 					case 'football':
 						football(socket);
 						break;
 					case 'volleyball':
 						volleyball(socket);
+						break;
+					case 'basketball':
+						basketball(socket);
 						break;
 					default:
 						console.log('ERROR: Event from database contains invalid sport type.');
@@ -77,6 +96,8 @@ function Game (io, db, room) {
 	*/
 	function football(socket){
 		updateClock();
+
+		//debugging socket io
 		socket.on('inside message', function(message){
 			console.log(message);
 		})
@@ -133,16 +154,64 @@ function Game (io, db, room) {
 			io.to(room).emit('volleyball win signal', team);
 		});
 	}
+	function basketball (socket){
+		updateCountdown();
 
-	/**
-	 **************************************Function to start the game clock (countup) **********************************
-	 */
+		//pause countdown
+		socket.on('pause countdown', function (){
+			stopCountdown();
+			io.to(room).emit('current countdown status', 'pause');
+		});
+
+		// start countdown
+		socket.on('start countdown', function (){
+			if(!ISTIMERUNNING) startCountdown();
+			io.to(room).emit('current countdown status', 'start');
+		});
+
+		//reset countdown
+		socket.on('reset countdown', function (){
+			stopCountdown();
+			CURRENT_TIME_DOWN = GAME.countdown_length;
+			updateCountdown();
+		});
+
+		// change score based on remote signal
+		// identical to football
+		socket.on('update score', function (newScoreInfo) {
+			if (newScoreInfo.team === 'home') {
+				GAME.team_home_score = newScoreInfo.score;
+			} else {
+				GAME.team_away_score = newScoreInfo.score;
+			}
+			io.to(room).emit('update score signal', newScoreInfo);
+		});
+
+		// change foul based on remote signal
+		socket.on('update foul', function (newFoulInfo) {
+			if (newFoulInfo.team === 'home') {
+				GAME.team_home_foul = newFoulInfo.foul;
+			} else {
+				GAME.team_away_foul = newFoulInfo.foul;
+			}
+			io.to(room).emit('update foul signal', newFoulInfo);
+		});
+
+		socket.on('change period', function (newPeriod){
+			GAME.current_quarter = newPeriod;
+			io.to(room).emit('change period signal', newPeriod);
+		});
+	}
+
+	// Function to start upwards counting clock
 	function startClock () {
 		if (CURRENT_TIME_UP != GAME.game_length) {
 			ISTIMERUNNING = true;
 			io.to(room).emit('current time status', 'start');
 			clockInterval = setInterval(function () {
 				CURRENT_TIME_UP += 10;
+
+				// only send time update to client every second
 				if((CURRENT_TIME_UP % 1000) === 0) updateClock();
 			}, 10);
 			console.log("Started clock");
@@ -151,14 +220,37 @@ function Game (io, db, room) {
 		}
 	}
 
-	/**
-	 * Function to stop the game clock
-	 */
+	// Function to stop upwards counting clock
 	function stopClock () {
 		ISTIMERUNNING = false;
 		clearInterval(clockInterval);
 		io.to(room).emit('current time status', 'pause');
 	}
+
+	// Function to start countdown clock
+	function startCountdown () {
+		if(CURRENT_TIME_DOWN != 0){
+			ISTIMERUNNING = true;
+			io.to(room).emit('current countdown status', 'start');
+			countdownInterval = setInterval(function () {
+				CURRENT_TIME_DOWN -= 10;
+
+				// Only send time update to clients every second
+				if((CURRENT_TIME_DOWN % 1000) === 0) updateCountdown();
+			}, 10);
+			console.log('Started countdown')
+		} else{
+			io.to(room).emit('current countdown status', 'pause');
+		}
+	}
+
+	// Function to stop countdown clock
+	function stopCountdown () {
+		ISTIMERUNNING = false;
+		clearInterval(countdownInterval);
+		io.to(room).emit('current countdown status', 'pause');
+	}
+
 	/**
 	 * Function to get the hours, minutes, seconds and milliseconds
 	 * from a time in ms originally
@@ -182,10 +274,8 @@ function Game (io, db, room) {
 		var hrs = (s - mins) / 60;
 		return [addZ(hrs), addZ(mins), addZ(secs), addZ(ms)];
 	}
-	/**
-	 * Function to update the clock
-	 */
-	 // ONLY WORKS FOR UPCOUNTING clock
+
+	// Function to send update of upwards counting clock to client
 	function updateClock () {
 		var printTime;
 		if (CURRENT_TIME_UP >= GAME.game_length) {
@@ -202,6 +292,24 @@ function Game (io, db, room) {
 			io.to(room).emit('current time status', 'Clock Stopped');
 		}
 		io.to(room).emit('current time print', printTime);
+	}
+
+	// Function to send update of countdown timer to client
+	function updateCountdown (){
+		var printTime;
+		if(CURRENT_TIME_DOWN <= 0){
+			clearInterval(countdownInterval);
+			stopCountdown();
+			io.to(room).emit('current countdown status', 'game finished');
+		}
+		var formattedTime = msToTime(CURRENT_TIME_DOWN);
+		printTime = formattedTime[1] + ':' + formattedTime[2];
+		if(ISTIMERUNNING){
+			io.to(room).emit('current countdown status', 'Timer Running');
+		}else{
+			io.to(room).emit('current countdown status', 'Timer Stopped');
+		}
+		io.to(room).emit('current countdown print', printTime);
 	}
 
 	function saveGame() {

@@ -72,6 +72,63 @@ block content
 					input.form-control.text-center#volleyball_team_away_points(type="number" disabled)
 					.scorebutton.btn#volleyball_awayminus: span.glyphicon.glyphicon-minus
 
+	#basketball.hidden
+		.container.text-center
+			.col-xs-6
+				button#start-basketball-timer.btn.btn-lg.btn-success.countdown_button Start
+			.col-xs-6
+				button#stop-basketball-timer.btn.btn-lg.btn-danger.countdown_button Pause
+		.text-center
+			p#timerstatus
+			h1#basketball_timer
+			p Current period:
+			.btn-group-vertical
+				.period_button.btn#period_plus: span.glyphicon.glyphicon-plus
+				input.form-control.text-center#basketball_current_quarter(type="number" disabled)
+				.period_button.btn#period_minus: span.glyphicon.glyphicon-minus
+		br
+		.text-center#scores
+			.col-xs-6
+				h3.team_home.teamtitle
+				p Score
+				.btn-group-vertical
+					.score_button.btn#team_home_score_plus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#team_home_basketball_score(type="number" disabled)
+					.score_button.btn#team_home_score_minus: span.glyphicon.glyphicon-minus
+				p Fouls
+				.btn-group-vertical
+					.foul_button.btn#team_home_foul_plus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#team_home_foul(type="number" disabled)
+					.foul_button.btn#team_home_foul_minus: span.glyphicon.glyphicon-minus
+			.col-xs-6
+				h3.team_away.teamtitle
+				p Score
+				.btn-group-vertical
+					.score_button.btn#team_away_score_plus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#team_away_basketball_score(type="number" disabled)
+					.score_button.btn#team_away_score_minus: span.glyphicon.glyphicon-minus
+				p Fouls
+				.btn-group-vertical
+					.score_button.btn#team_away_foul_plus: span.glyphicon.glyphicon-plus
+					input.form-control.text-center#team_away_foul(type="number" disabled)
+					.score_button.btn#team_away_foul_minus: span.glyphicon.glyphicon-minus
+		br
+		.text-center
+			button.btn.btn-danger(data-toggle="modal" data-target="#clearTimerConfirm") Reset Clock
+		br
+		// Popup to confirm clearing the clock
+		#clearTimerConfirm.modal.fade(role='dialog' aria-hidden='false')
+			.modal-dialog
+				.modal-content.invert-text
+					.modal-header
+						button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
+						h4.modal-title Reset Game Clock
+					.modal-body
+						h6 WARNING
+						p This will reset the game clock. This action CANNOT be undone.
+					.modal-footer
+						button.btn.btn-success(data-dismiss='modal' aria-hidden='true') Cancel
+						button#reset-basketball-timer.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Reset Clock
 	#saveGameModal.text-center.hidden
 		button.btn.btn-primary(data-toggle="modal" data-target="#saveGameConfirm") Save Game
 	// Popup to confirm saving the game

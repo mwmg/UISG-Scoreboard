@@ -6,8 +6,14 @@ seems_like_I_have_a_plan
 models.json
 UISG-Scoreboard.sublime-project
 UISG-Scoreboard.sublime-workspace
+
+# SASS #
+public/stylesheets/.sass-cache
+*.map
+
 # Node modules #
 node_modules
+
 
 # Packages #
 ############

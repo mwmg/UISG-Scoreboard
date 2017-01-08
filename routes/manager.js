@@ -159,6 +159,13 @@ module.exports = function(passport){
 				newevent.team_home_wins = 0;
 				newevent.team_away_wins = 0;
 				break;
+			case 'basketball':
+				newevent.team_home_score = 0;
+				newevent.team_away_score = 0;
+				newevent.team_home_foul = 0;
+				newevent.team_away_foul = 0;
+				newevent.current_quarter = 1;
+				newevent.countdown_length = req.body.countdown_length * 60000;
 			case 'default':
 				console.log('Invalid sport entered through form');
 				break;

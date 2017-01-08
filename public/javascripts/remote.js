@@ -139,6 +139,114 @@ function volleyball() {
 	*/
 }
 
+function basketball() {
+	$('#basketball').removeClass('hidden');
+	basketball_init();
+
+	// Button handler to send signal to server to pause time
+	$('#start-basketball-timer').click(function () {
+		socket.emit('start countdown', '');
+	});
+
+	// Button handler to send signal to server to start time
+	$('#stop-basketball-timer').click(function () {
+		socket.emit('pause countdown', '');
+	});
+
+	// Button handler to send signal to server to reset clock
+	$('#reset-basketball-timer').click(function () {
+		socket.emit('reset countdown', '');
+	});
+
+	//Receive timer update
+	socket.on('current countdown print', function(printTime){
+	    $('#basketball_timer').text(printTime);
+	});
+
+	//Receive timer status update
+	socket.on('current countdown status', function(status){
+		var status;
+		console.log(status);
+		if (status === 'start') {
+			status = 'Clock Running';
+		}
+		if (status === 'pause') {
+			status = 'Clock Stopped';
+		}
+		if (status === 'game finished') {
+			status = 'Game finished';
+			$('#saveGameModal').removeClass('hidden');
+		}
+		if(status) $('#timerstatus').text(status);
+	});
+
+	// Functions to give functionality to plus and minus buttons
+	$('#team_home_score_plus').click(function () {
+		GAME.team_home_score++;
+		basketball_init();
+		changeScore('home', GAME.team_home_score);
+	});
+
+	$('#team_away_score_plus').click(function () {
+		GAME.team_away_score++;
+		basketball_init();
+		changeScore('away', GAME.team_away_score);
+	});
+
+	$('#team_home_score_minus').click(function () {
+		if (GAME.team_home_score > 0) GAME.team_home_score--;
+		basketball_init();
+		changeScore('home', GAME.team_home_score);
+	});
+
+	$('#team_away_score_minus').click(function () {
+		if (GAME.team_away_score > 0) GAME.team_away_score--;
+		basketball_init();
+		changeScore('away', GAME.team_away_score);
+	});
+
+	// Functions to give functionality to plus and minus buttons for the fouls
+	$('#team_home_foul_plus').click(function () {
+		GAME.team_home_foul++;
+		basketball_init();
+		changeFoul('home', GAME.team_home_foul);
+	});
+
+	$('#team_away_foul_plus').click(function () {
+		GAME.team_away_foul++;
+		basketball_init();
+		changeFoul('away', GAME.team_away_foul);
+	});
+
+	$('#team_home_foul_minus').click(function () {
+		if (GAME.team_home_foul > 0) GAME.team_home_foul--;
+		basketball_init();
+		changeFoul('home', GAME.team_home_foul);
+	});
+
+	$('#team_away_foul_minus').click(function () {
+		if (GAME.team_away_foul > 0) GAME.team_away_foul--;
+		basketball_init();
+		changeFoul('away', GAME.team_away_foul);
+	});
+
+	$('#period_plus').click(function () {
+		if (GAME.current_quarter < 4 && ($('#basketball_timer').text() == '12:00' || $('#basketball_timer').text() == '00:00')){
+			GAME.current_quarter++;
+			basketball_init();
+			changePeriod();
+		}
+	});
+
+	$('#period_minus').click(function () {
+		if (GAME.current_quarter > 0 && ($('#basketball_timer').text() == '12:00' || $('#basketball_timer').text() == '00:00')){
+			GAME.current_quarter--;
+			basketball_init();
+			changePeriod();
+		}
+	});
+}
+
 function football_init () {
     $('#team_home_score').attr('value', GAME.team_home_score);
 	$('#team_away_score').attr('value', GAME.team_away_score);
@@ -153,6 +261,14 @@ function volleyball_init () {
     if(GAME.current_set_type === 'tiebreak'){
         $('#volleyball_current_set_type').text('Tiebreak');
     }
+}
+
+function basketball_init () {
+	    $('#team_home_basketball_score').attr('value', GAME.team_home_score);
+		$('#team_away_basketball_score').attr('value', GAME.team_away_score);
+		$('#team_home_foul').attr('value', GAME.team_home_foul);
+		$('#team_away_foul').attr('value', GAME.team_away_foul);
+		$('#basketball_current_quarter').attr('value', GAME.current_quarter);
 }
 /*
 ************************************** Initial stuff ****************************************
@@ -169,6 +285,9 @@ socket.on('initial game state', function (state) {
 			break;
 		case 'volleyball':
 			volleyball();
+			break;
+		case 'basketball':
+			basketball();
 			break;
 		default:
 			console.log('ERROR: Event from database contains invalid sport type.');
@@ -207,6 +326,19 @@ function changeScore (scoreTeam, newScore) {
 		team: scoreTeam
 	}
 	socket.emit('update score', out);
+}
+
+function changeFoul (scoreTeam, newFoul) {
+	var out = {
+		foul: newFoul,
+		team: scoreTeam
+	}
+	socket.emit('update foul', out);
+}
+
+function changePeriod (){
+	socket.emit('reset countdown', '');
+	socket.emit('change period', GAME.current_quarter);
 }
 
 function volleyballChangePoints (pointsTeam, newPoints) {
