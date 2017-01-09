@@ -38,5 +38,7 @@ function populateTable() {
 
         // Inject the whole content string into our existing HTML table
         $('#eventsList table tbody').html(tableContent);
+        $('.loading-notice').remove();
+        $('#eventsList').removeClass('hidden');
     });
 };

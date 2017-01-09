@@ -1,22 +1,25 @@
 extends layout
 
 block content
-	div.container
-		div.row
-			div.col-sm-12.col-md-8.col-md-offset-2
-				h2= title
-				// Live Events List
-				h3 Live Events
-				p Click entry
-				#eventsList.delete-table
-					table
-						thead
-							th Sport
-							th Event name
-							th Home team
-							th Away team
-							th Room
-						tbody
-	script.
-		action = "#{action}";
-	script(src='/javascripts/manage-liveevents.js')
+    div.container
+        div.row
+            div.col-sm-12.col-md-8.col-md-offset-2
+                h2= title
+                // Live Events List
+                h3 Live Events
+                p Click entry
+                .loading-notice
+                    p Loading ...
+                    .spinner
+                #eventsList.delete-table.hidden
+                    table
+                        thead
+                            th Sport
+                            th Event name
+                            th Home team
+                            th Away team
+                            th Room
+                        tbody
+    script.
+        action = "#{action}";
+    script(src='/javascripts/manage-liveevents.js')
