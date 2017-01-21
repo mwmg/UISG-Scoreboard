@@ -32,7 +32,7 @@ if('user' in argv && 'password' in argv){
 	                "password": createHash(argv.password)
 	                };
 	// Get user collection
-	var users = db.get('user');
+	var users = db.get('users');
 
 	// Insert new user to database
 	users.insert(newUser, function(err, result){
